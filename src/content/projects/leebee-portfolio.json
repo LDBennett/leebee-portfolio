@@ -1,7 +1,15 @@
 {
   "title": "LDBennett Portfolio",
   "description": "Personal developer portfolio and interactive resume built with Astro, structured around Feature-Sliced Design.",
-  "tags": ["Astro", "TypeScript", "Tailwind CSS", "Vite", "Motion One", "Feature-Sliced Design"],
+  "tags": [
+    "Astro",
+    "TypeScript",
+    "Tailwind CSS",
+    "Vite",
+    "Motion One",
+    "Cloudflare Pages",
+    "Feature-Sliced Design"
+  ],
   "startDate": "2026-06-13",
   "featured": true,
   "highlights": [

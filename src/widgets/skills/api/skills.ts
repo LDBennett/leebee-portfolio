@@ -30,12 +30,21 @@ export const skillCategories: SkillCategory[] = [
   {
     label: 'Backend',
     accent: 'text-blue-400',
-    skills: ['Node.js', 'PHP', 'Laravel', 'Zend Framework', 'Kafka', 'Microservices'],
+    skills: [
+      'Node.js',
+      'Express',
+      'PHP',
+      'Laravel',
+      'Zend Framework',
+      'PostgreSQL',
+      'mySQL',
+      'Kafka',
+    ],
   },
   {
     label: 'Database & Infra',
     accent: 'text-orange-400',
-    skills: ['PostgreSQL', 'mySQL', 'Supabase', 'Neon', 'Drizzle ORM', 'Cloudflare Workers'],
+    skills: ['Supabase', 'Neon', 'Drizzle ORM', 'Cloudflare Workers', 'Cloudflare Pages', 'Vercel'],
   },
   {
     label: 'Tools & Workflow',
