@@ -24,13 +24,17 @@ const sorted = projects.sort((a, b) => {
         >
           <div>
             <div class="flex items-center justify-between">
-              <span class="text-emerald-400 text-xs font-mono uppercase tracking-widest">Project</span>
+              <span class="text-emerald-400 text-xs font-mono uppercase tracking-widest">{project.data.type ?? 'Project'}</span>
               <span class="text-blue-400/50 text-xs font-mono">
                 {project.data.startDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
               </span>
             </div>
             <h3 class="text-slate-50 text-xl font-semibold mt-2">{project.data.title}</h3>
             <p class="text-blue-200 text-sm mt-2 leading-relaxed">{project.data.description}</p>
+
+            {project.data.note && (
+              <p class="mt-2 text-xs italic text-blue-400/50">{project.data.note}</p>
+            )}
 
             {project.data.highlights && project.data.highlights.length > 0 && (
               <ul class="mt-4 space-y-1.5">

@@ -30,4 +30,6 @@ function setupTilt(el: HTMLElement): void {
   });
 }
 
-document.querySelectorAll<HTMLElement>('[data-tilt]').forEach(setupTilt);
+if (!window.matchMedia('(hover: none)').matches) {
+  document.querySelectorAll<HTMLElement>('[data-tilt]').forEach(setupTilt);
+}
