@@ -8,5 +8,14 @@
     "Developed and sustained high-volume platform features, such as the core embedded podcast player, interactive analytics dashboards, and users' personal podcast websites",
     "Engineered the platform's shared UI component library integrating advanced data visualization/mapping, and localization support"
   ],
-  "tags": ["React", "TypeScript", "SASS", "amCharts", "PHP"]
+  "tags": [
+    "React",
+    "Vite",
+    "SASS/SCSS",
+    "Block, Element, Modifier (BEM)",
+    "PHP",
+    "Zend Framework",
+    "React Bootstrap",
+    "mySQL"
+  ]
 }

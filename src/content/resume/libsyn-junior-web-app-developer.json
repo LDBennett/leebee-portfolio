@@ -9,5 +9,5 @@
     "Built and launched the podcast feed destination for RadioPublic, extending the platform's distribution network",
     "Engineered major platform overhauls, including complete UI redesigns of the Libsyn Directory and the MyLibsyn user portal"
   ],
-  "tags": ["JavaScript", "PHP", "Laravel", "Vue", "SASS"]
+  "tags": ["JavaScript", "PHP", "mySQL", "SASS/SCSS", "Zend Framework", "Bootstrap", "Material Design"]
 }

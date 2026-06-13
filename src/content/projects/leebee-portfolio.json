@@ -1,0 +1,11 @@
+{
+  "title": "LDBennett Portfolio",
+  "description": "Personal developer portfolio and interactive resume built with Astro, structured around Feature-Sliced Design.",
+  "tags": ["Astro", "TypeScript", "Tailwind CSS", "Vite", "Motion One", "Feature-Sliced Design"],
+  "startDate": "2026-06-13",
+  "featured": true,
+  "highlights": [
+    "Structured with Feature-Sliced Design (shared → entities → features → widgets → pages)",
+    "Motion One scroll-reveal, staggered hero entrance, and 3D card tilt with per-element tilt control via data attributes"
+  ]
+}

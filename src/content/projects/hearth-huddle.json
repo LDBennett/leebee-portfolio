@@ -2,12 +2,17 @@
   "title": "Hearth Huddle",
   "description": "A mobile-first social party game web app for in-person play. Players pass a single phone around to take turns across 5 original games.",
   "tags": [
-    "TanStack Start",
     "React 19",
+    "TanStack Start",
     "TanStack Router",
+    "TanStack Form",
+    "Framer",
     "Tailwind CSS",
+    "TypeScript",
+    "Vite",
     "Cloudflare Workers",
-    "TypeScript"
+    "Domain Driven Design",
+    "Feature-Sliced Design"
   ],
   "startDate": "2026-06-03",
   "featured": true,

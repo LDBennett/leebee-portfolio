@@ -1,7 +1,18 @@
 {
   "title": "Video Game Backlog Bunker",
   "description": "A backlog management app to track, organize, and conquer your game library — because the pile never shrinks on its own.",
-  "tags": ["Next.js", "Supabase", "PostgreSQL", "TypeScript"],
+  "tags": [
+    "Next.js",
+    "TypeScript",
+    "Tailwind CSS",
+    "Vite",
+    "Zustand",
+    "Framer",
+    "Supabase",
+    "PostgreSQL",
+    "Domain Driven Design",
+    "Feature-Sliced Design"
+  ],
   "startDate": "2026-05-21",
   "featured": true,
   "liveUrl": "https://digitalninjalee.com",

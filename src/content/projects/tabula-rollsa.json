@@ -1,7 +1,18 @@
 {
   "title": "Tabula Rollsa",
   "description": "A mobile-first web app for logging, tracking, and analyzing dice rolls across tabletop RPG sessions.",
-  "tags": ["SvelteKit 2", "Svelte 5", "Drizzle ORM", "Neon", "PostgreSQL", "TypeScript"],
+  "tags": [
+    "SvelteKit",
+    "Svelte",
+    "TypeScript",
+    "Tailwind CSS",
+    "Vite",
+    "Drizzle ORM",
+    "Neon",
+    "PostgreSQL",
+    "Domain Driven Design",
+    "Feature-Sliced Design"
+  ],
   "startDate": "2026-05-26",
   "featured": true,
   "liveUrl": "https://tabularollsa.com",

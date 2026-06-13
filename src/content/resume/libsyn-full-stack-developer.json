@@ -8,5 +8,15 @@
     "Contributed frontend development to a full platform rebuild in Remix and TypeScript",
     "Built the quota microservice in TypeScript, utilizing Kafka for event-driven messaging as part of a platform modernization initiative"
   ],
-  "tags": ["Remix", "TypeScript", "Kafka", "Node.js", "Microservices"]
+  "tags": [
+    "Remix",
+    "TypeScript",
+    "Kafka",
+    "Node.js",
+    "Microservices",
+    "Tailwind CSS",
+    "Vite",
+    "Jest",
+    "Vitest"
+  ]
 }

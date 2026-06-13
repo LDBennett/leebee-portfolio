@@ -10,5 +10,16 @@
     "Built end-to-end integrations connecting the platform to Spotify Video and the Spotify Audience Network, opening video monetization and programmatic ad insertion for creators",
     "Integrated AI-assisted workflows (Claude, Copilot) to accelerate feature prototyping and streamline repetitive development tasks"
   ],
-  "tags": ["React", "TypeScript", "React Router 7", "TanStack", "Node.js"]
+  "tags": [
+    "React",
+    "TypeScript",
+    "React Router 7",
+    "TanStack Query",
+    "TanStack Form",
+    "TanStack Table",
+    "Tailwind CSS",
+    "Node.js",
+    "Vite",
+    "Domain Driven Design"
+  ]
 }
