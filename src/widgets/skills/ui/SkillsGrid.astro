@@ -1,0 +1,70 @@
+---
+import { TechBadge } from '@shared/ui';
+import { skillCategories } from '../api/skills';
+
+const [frontend, backend, database, tools] = skillCategories;
+---
+
+<section id="skills" class="py-16 px-8">
+  <div class="max-w-4xl mx-auto">
+
+    <p class="text-blue-400 text-xs font-mono uppercase tracking-widest mb-2">Stack</p>
+    <h2 class="text-slate-50 text-3xl font-bold mb-8">Skills & Tech</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 auto-rows-[minmax(160px,auto)] gap-4">
+
+      <!-- Frontend — wide -->
+      <div
+        data-scroll-reveal
+        data-tilt
+        class="md:col-span-2 bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-6 flex flex-col gap-4 transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg hover:shadow-black/30"
+      >
+        <span class={`${frontend.accent} text-xs font-mono uppercase tracking-widest`}>{frontend.label}</span>
+        <div class="flex flex-wrap gap-2">
+          {frontend.skills.map((skill) => <TechBadge label={skill} />)}
+        </div>
+      </div>
+
+      <!-- Backend — narrow -->
+      <div
+        data-scroll-reveal
+        data-tilt
+        class="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-6 flex flex-col gap-4 transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg hover:shadow-black/30"
+      >
+        <span class={`${backend.accent} text-xs font-mono uppercase tracking-widest`}>{backend.label}</span>
+        <div class="flex flex-wrap gap-2">
+          {backend.skills.map((skill) => <TechBadge label={skill} />)}
+        </div>
+      </div>
+
+      <!-- Database — narrow -->
+      <div
+        data-scroll-reveal
+        data-tilt
+        class="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-6 flex flex-col gap-4 transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg hover:shadow-black/30"
+      >
+        <span class={`${database.accent} text-xs font-mono uppercase tracking-widest`}>{database.label}</span>
+        <div class="flex flex-wrap gap-2">
+          {database.skills.map((skill) => <TechBadge label={skill} />)}
+        </div>
+      </div>
+
+      <!-- Tools — wide -->
+      <div
+        data-scroll-reveal
+        data-tilt
+        class="md:col-span-2 bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-6 flex flex-col gap-4 transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg hover:shadow-black/30"
+      >
+        <span class={`${tools.accent} text-xs font-mono uppercase tracking-widest`}>{tools.label}</span>
+        <div class="flex flex-wrap gap-2">
+          {tools.skills.map((skill) => <TechBadge label={skill} />)}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+  import '@shared/ui/scripts/scrollReveal.ts';
+</script>

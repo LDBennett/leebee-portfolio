@@ -1,0 +1,39 @@
+---
+import '../static/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Lee Bennett — Developer Portfolio',
+  description = 'Developer portfolio and interactive resume.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+  </head>
+  <body class="bg-blue-950 text-blue-100 min-h-screen">
+    <div id="mouse-light" aria-hidden="true"></div>
+    <slot />
+    <script>
+      import '../scripts/mouseLightEffect.ts';
+    </script>
+    <script>
+      import '../scripts/cardTilt.ts';
+    </script>
+    <script>
+      import '../scripts/smoothScroll.ts';
+    </script>
+  </body>
+</html>

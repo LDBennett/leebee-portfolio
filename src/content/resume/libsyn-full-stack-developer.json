@@ -1,0 +1,12 @@
+{
+  "company": "Liberated Syndication (Libsyn)",
+  "role": "Full-Stack Developer",
+  "startDate": "2022-07",
+  "endDate": "2024-01",
+  "description": "Contributed to a full platform rebuild in Remix and TypeScript, and built a Kafka-powered quota microservice.",
+  "highlights": [
+    "Contributed frontend development to a full platform rebuild in Remix and TypeScript",
+    "Built the quota microservice in TypeScript, utilizing Kafka for event-driven messaging as part of a platform modernization initiative"
+  ],
+  "tags": ["Remix", "TypeScript", "Kafka", "Node.js", "Microservices"]
+}

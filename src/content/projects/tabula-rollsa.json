@@ -1,0 +1,14 @@
+{
+  "title": "Tabula Rollsa",
+  "description": "A mobile-first web app for logging, tracking, and analyzing dice rolls across tabletop RPG sessions.",
+  "tags": ["SvelteKit 2", "Svelte 5", "Drizzle ORM", "Neon", "PostgreSQL", "TypeScript"],
+  "startDate": "2026-05-26",
+  "featured": true,
+  "liveUrl": "https://tabularollsa.com",
+  "repoUrl": "https://github.com/LDBennett/dnd-dice-tracker",
+  "highlights": [
+    "Statistics dashboard tracks total rolls, averages, natural 20s and 1s, and per-die breakdowns across all sessions",
+    "Built with Svelte 5 runes and Drizzle ORM against Neon serverless Postgres — session-grouped roll history with notes and modifiers",
+    "Handedness toggle switches the UI layout for left- and right-handed play; guest mode surfaces aggregated public stats without an account"
+  ]
+}

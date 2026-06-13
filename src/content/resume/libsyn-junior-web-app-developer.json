@@ -1,0 +1,13 @@
+{
+  "company": "Liberated Syndication (Libsyn)",
+  "role": "Junior Web Application Developer",
+  "startDate": "2018-04",
+  "endDate": "2021-02",
+  "description": "Built platform distribution integrations and led major UI overhauls across the Libsyn ecosystem.",
+  "highlights": [
+    "Ensured cross-browser compatibility across Chrome, Firefox, Safari, and Internet Explorer",
+    "Built and launched the podcast feed destination for RadioPublic, extending the platform's distribution network",
+    "Engineered major platform overhauls, including complete UI redesigns of the Libsyn Directory and the MyLibsyn user portal"
+  ],
+  "tags": ["JavaScript", "PHP", "Laravel", "Vue", "SASS"]
+}

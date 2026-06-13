@@ -1,0 +1,14 @@
+{
+  "company": "Liberated Syndication (Libsyn)",
+  "role": "Full-Stack Engineer",
+  "startDate": "2024-01",
+  "endDate": "2026-05",
+  "description": "Led frontend modernization and built key platform integrations for a high-volume podcast hosting platform.",
+  "highlights": [
+    "Led a frontend modernization initiative using React Router 7 and TanStack (Query, Form, Table), making architecture and tooling decisions for a full platform UI rebuild",
+    "Designed and built the onboarding milestone system, a flexible event-tracking layer that drove show setup completion, advertising enrollment, and feed distribution to Apple Podcasts and Spotify",
+    "Built end-to-end integrations connecting the platform to Spotify Video and the Spotify Audience Network, opening video monetization and programmatic ad insertion for creators",
+    "Integrated AI-assisted workflows (Claude, Copilot) to accelerate feature prototyping and streamline repetitive development tasks"
+  ],
+  "tags": ["React", "TypeScript", "React Router 7", "TanStack", "Node.js"]
+}

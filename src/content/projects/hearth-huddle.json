@@ -1,0 +1,20 @@
+{
+  "title": "Hearth Huddle",
+  "description": "A mobile-first social party game web app for in-person play. Players pass a single phone around to take turns across 5 original games.",
+  "tags": [
+    "TanStack Start",
+    "React 19",
+    "TanStack Router",
+    "Tailwind CSS",
+    "Cloudflare Workers",
+    "TypeScript"
+  ],
+  "startDate": "2026-06-03",
+  "featured": true,
+  "liveUrl": "https://hearthhuddle.com",
+  "highlights": [
+    "Designed and built 5 original party games — social deduction, co-op improv, and voting formats — all playable pass-and-play on a single phone",
+    "SSR with TanStack Start (React 19) deployed to Cloudflare Workers via Wrangler for globally low-latency edge rendering",
+    "Type-safe file-based routing via TanStack Router with Framer Motion handling per-game animation sequences"
+  ]
+}
