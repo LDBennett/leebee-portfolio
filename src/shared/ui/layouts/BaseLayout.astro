@@ -7,8 +7,8 @@ interface Props {
 }
 
 const {
-  title = 'Lee Bennett — Developer Portfolio',
-  description = 'Developer portfolio and interactive resume.',
+  title = 'Lee Bennett - Full-Stack Engineer',
+  description = 'My personal portfolio showcasing my recent work and experience as a Full-Stack Engineer',
 } = Astro.props;
 ---
 
@@ -23,7 +23,7 @@ const {
     <meta name="description" content={description} />
     <title>{title}</title>
   </head>
-  <body class="bg-blue-950 text-blue-100 min-h-screen">
+  <body class="min-h-screen bg-blue-950 text-blue-100">
     <div id="tsparticles" aria-hidden="true"></div>
     <div id="mouse-light" aria-hidden="true"></div>
     <slot />
