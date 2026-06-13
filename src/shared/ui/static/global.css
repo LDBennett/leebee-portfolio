@@ -24,6 +24,18 @@
   opacity: 1;
 }
 
+#tsparticles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+#tsparticles canvas {
+  position: absolute;
+  inset: 0;
+}
+
 #mouse-light {
   --mouse-x: 50%;
   --mouse-y: 50%;

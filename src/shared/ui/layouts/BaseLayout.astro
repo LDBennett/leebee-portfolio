@@ -24,8 +24,12 @@ const {
     <title>{title}</title>
   </head>
   <body class="bg-blue-950 text-blue-100 min-h-screen">
+    <div id="tsparticles" aria-hidden="true"></div>
     <div id="mouse-light" aria-hidden="true"></div>
     <slot />
+    <script>
+      import '../scripts/particles.ts';
+    </script>
     <script>
       import '../scripts/mouseLightEffect.ts';
     </script>
