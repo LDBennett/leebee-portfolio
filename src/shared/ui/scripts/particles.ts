@@ -11,7 +11,7 @@ await tsParticles.load({
     particles: {
       number: { value: 15 },
       color: { value: ['#60a5fa', '#34d399', '#818cf8'] },
-      shape: { type: 'circle' },
+      shape: { type: 'square' },
       opacity: {
         value: { min: 0.02, max: 0.11 },
         animation: {
@@ -21,7 +21,7 @@ await tsParticles.load({
         },
       },
       size: {
-        value: { min: 20, max: 40 },
+        value: { min: 30, max: 80 },
         animation: {
           enable: true,
           speed: 1,

@@ -1,57 +1,30 @@
 ---
-import { getCollection } from 'astro:content';
+import { ResumeEntry, getResumeEntries, formatDate } from '@entities/resume';
 
-const roles = await getCollection('resume');
-const sorted = roles.sort((a, b) => b.data.startDate.localeCompare(a.data.startDate));
-
-function formatDate(dateStr: string): string {
-  const [year, month] = dateStr.split('-');
-  if (!month) return year;
-  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  return `${months[parseInt(month) - 1]} ${year}`;
-}
+const entries = await getResumeEntries();
 ---
 
 <section id="resume" class="max-w-4xl mx-auto px-8 py-16">
-  <h2 class="text-blue-400 text-xs font-mono uppercase tracking-widest mb-10">Experience</h2>
+  <p class="text-accent text-xs font-mono uppercase tracking-widest mb-2">Career</p>
+  <h2 class="text-primary text-3xl font-bold mb-10">Experience</h2>
 
-  <div class="relative">
-    <div class="absolute left-0 top-2 bottom-2 w-px bg-white/15"></div>
-
-    <div class="space-y-6 pl-8">
-      {sorted.map((role) => (
-        <div class="relative">
-          <div class="absolute -left-8 top-5 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-blue-950 shadow-sm"></div>
-
-          <div data-scroll-reveal data-tilt class="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-6 transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg hover:shadow-black/30">
-            <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 mb-4">
-              <div>
-                <h3 class="text-slate-50 font-semibold">{role.data.role}</h3>
-                <p class="text-blue-300 text-sm">{role.data.company}</p>
-              </div>
-              <span class="text-blue-400 text-xs font-mono whitespace-nowrap shrink-0">
-                {formatDate(role.data.startDate)} – {role.data.endDate ? formatDate(role.data.endDate) : 'Present'}
-              </span>
-            </div>
-
-            <ul class="space-y-2">
-              {role.data.highlights.slice(0, 2).map((highlight) => (
-                <li class="text-blue-200 text-sm leading-relaxed flex gap-2">
-                  <span class="text-emerald-400 shrink-0 mt-0.5">›</span>
-                  <span>{highlight}</span>
-                </li>
-              ))}
-            </ul>
-
-            <div class="flex flex-wrap gap-1.5 mt-5">
-              {role.data.tags.map((tag) => (
-                <span class="bg-white/10 text-blue-200 text-xs px-2.5 py-0.5 rounded-full font-mono">{tag}</span>
-              ))}
-            </div>
-          </div>
+  <div>
+    {entries.map((entry) => (
+      <div class="flex gap-0" data-scroll-reveal>
+        <div class="w-28 shrink-0 text-right pr-6 pt-1.5">
+          <span class="text-muted text-xs font-mono">{formatDate(entry.data.startDate)}</span>
+          <span class="text-muted/30 text-xs font-mono block">–</span>
+          <span class="text-muted text-xs font-mono block">
+            {entry.data.endDate ? formatDate(entry.data.endDate) : 'Present'}
+          </span>
         </div>
-      ))}
-    </div>
+
+        <div class="relative border-l border-stroke pl-8 pb-12 flex-1">
+          <div class="absolute -left-1.25 top-1.5 w-2.5 h-2.5 rounded-full bg-highlight border-2 border-canvas" />
+          <ResumeEntry entry={entry} />
+        </div>
+      </div>
+    ))}
   </div>
 </section>
 

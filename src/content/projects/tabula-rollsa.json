@@ -22,5 +22,6 @@
     "Statistics dashboard tracks total rolls, averages, natural 20s and 1s, and per-die breakdowns across all sessions",
     "Built with Svelte 5 runes and Drizzle ORM against Neon serverless Postgres — session-grouped roll history with notes and modifiers",
     "Handedness toggle switches the UI layout for left- and right-handed play; guest mode surfaces aggregated public stats without an account"
-  ]
+  ],
+  "image": "/screenshots/tabularollsa.png"
 }

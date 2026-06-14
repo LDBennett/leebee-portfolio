@@ -1,0 +1,30 @@
+---
+import type { ResumeEntry } from '../types/index';
+
+interface Props {
+  entry: ResumeEntry;
+}
+
+const { entry } = Astro.props;
+
+const visibleTags = entry.data.tags.slice(0, 3);
+const overflowCount = entry.data.tags.length - 3;
+---
+
+<div>
+  <h3 class="text-primary font-semibold">{entry.data.role}</h3>
+  <p class="text-secondary text-sm">{entry.data.company}</p>
+  {entry.data.description && (
+    <p class="text-muted text-sm mt-1.5 leading-relaxed">{entry.data.description}</p>
+  )}
+  <div class="flex flex-wrap gap-1.5 mt-3">
+    {visibleTags.map((tag) => (
+      <span class="bg-surface-subtle border border-stroke-subtle text-muted text-xs px-2 py-0.5 rounded font-mono">
+        {tag}
+      </span>
+    ))}
+    {overflowCount > 0 && (
+      <span class="text-muted/40 text-xs font-mono px-1">+{overflowCount}</span>
+    )}
+  </div>
+</div>
