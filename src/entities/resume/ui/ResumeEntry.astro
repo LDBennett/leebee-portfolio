@@ -1,0 +1,50 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { formatDate } from '../utils';
+
+interface Props {
+  role: CollectionEntry<'resume'>;
+}
+
+const { role } = Astro.props;
+---
+
+<div class="relative">
+  <div class="absolute -left-8 top-5 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-blue-950 shadow-sm">
+  </div>
+
+  <div
+    data-scroll-reveal
+    data-tilt
+    class="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-6 transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg hover:shadow-black/30"
+  >
+    <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 mb-4">
+      <div>
+        <h3 class="text-slate-50 font-semibold">{role.data.role}</h3>
+        <p class="text-blue-300 text-sm">{role.data.company}</p>
+      </div>
+      <span class="text-blue-400 text-xs font-mono whitespace-nowrap shrink-0">
+        {formatDate(role.data.startDate)} – {role.data.endDate ? formatDate(role.data.endDate) : 'Present'}
+      </span>
+    </div>
+
+    <ul class="space-y-2">
+      {
+        role.data.highlights.slice(0, 2).map((highlight) => (
+          <li class="text-blue-200 text-sm leading-relaxed flex gap-2">
+            <span class="text-emerald-400 shrink-0 mt-0.5">›</span>
+            <span>{highlight}</span>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="flex flex-wrap gap-1.5 mt-5">
+      {
+        role.data.tags.map((tag) => (
+          <span class="bg-white/10 text-blue-200 text-xs px-2.5 py-0.5 rounded-full font-mono">{tag}</span>
+        ))
+      }
+    </div>
+  </div>
+</div>
