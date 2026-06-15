@@ -15,5 +15,6 @@
   "highlights": [
     "Structured with Feature-Sliced Design (shared → entities → features → widgets → pages)",
     "Motion One scroll-reveal, staggered hero entrance, and 3D card tilt with per-element tilt control via data attributes"
-  ]
+  ],
+  "image": "/screenshots/ldbennett.png"
 }

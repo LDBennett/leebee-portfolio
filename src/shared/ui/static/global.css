@@ -1,5 +1,26 @@
 @import "tailwindcss";
 
+@theme {
+  /* Canvas */
+  --color-canvas: #172554;       /* blue-950 */
+
+  /* Text scale — full opacity, no hacks */
+  --color-primary:   #eff6ff;    /* blue-50  — headings, titles */
+  --color-body:      #dbeafe;    /* blue-100 — descriptions, copy */
+  --color-secondary: #bfdbfe;    /* blue-200 — subtitles, company names */
+  --color-muted:     #93c5fd;    /* blue-300 — dates, metadata, links at rest */
+  --color-accent:    #38bdf8;    /* sky-400  — section labels */
+  --color-highlight: #34d399;    /* emerald-400 — CTAs, hover, timeline dots */
+
+  /* Surfaces */
+  --color-surface:        rgb(255 255 255 / 0.10);
+  --color-surface-subtle: rgb(255 255 255 / 0.05);
+
+  /* Strokes / borders */
+  --color-stroke:        rgb(255 255 255 / 0.15);
+  --color-stroke-subtle: rgb(255 255 255 / 0.10);
+}
+
 [data-hero-card],
 [data-scroll-reveal] {
   opacity: 0;
@@ -22,6 +43,63 @@
 
 [data-tilt]:hover .card-glare {
   opacity: 1;
+}
+
+/* Project notes MDX prose */
+.project-notes h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--color-stroke-subtle);
+}
+
+.project-notes h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-muted);
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.project-notes p {
+  font-size: 0.9375rem;
+  line-height: 1.75;
+  color: var(--color-secondary);
+  margin-bottom: 1rem;
+}
+
+.project-notes ul {
+  margin-bottom: 1rem;
+  padding-left: 1.25rem;
+  list-style-type: disc;
+}
+
+.project-notes li {
+  font-size: 0.9375rem;
+  line-height: 1.75;
+  color: var(--color-secondary);
+  margin-bottom: 0.25rem;
+}
+
+.project-notes img {
+  width: 100%;
+  border-radius: 0.75rem;
+  border: 1px solid var(--color-stroke-subtle);
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.project-notes a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.project-notes a:hover {
+  color: var(--color-highlight);
 }
 
 .typewriter-cursor {

@@ -18,6 +18,11 @@ const projects = defineCollection({
   }),
 });
 
+const projectNotes = defineCollection({
+  loader: glob({ pattern: '**/*.mdx', base: './src/content/projectNotes' }),
+  schema: z.object({}),
+});
+
 const resume = defineCollection({
   loader: glob({ pattern: '**/*.json', base: './src/content/resume' }),
   schema: z.object({
@@ -31,4 +36,4 @@ const resume = defineCollection({
   }),
 });
 
-export const collections = { projects, resume };
+export const collections = { projects, projectNotes, resume };

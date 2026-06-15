@@ -2,77 +2,35 @@
 import { TechBadge } from '@shared/ui';
 import { skillCategories } from '../api/skills';
 
-const [frontend, backend, database, tools, methodology] = skillCategories;
+const colSpanClass: Record<number, string> = {
+  1: '',
+  2: 'md:col-span-2',
+  3: 'md:col-span-3',
+};
 ---
 
 <section id="skills" class="py-16 px-8">
   <div class="max-w-4xl mx-auto">
 
-    <p class="text-blue-400 text-xs font-mono uppercase tracking-widest mb-2">Stack</p>
-    <h2 class="text-slate-50 text-3xl font-bold mb-8">Skills & Tech</h2>
+    <p class="text-accent text-xs font-mono uppercase tracking-widest mb-2">Stack</p>
+    <h2 class="text-primary text-3xl font-bold mb-8">Skills & Tech</h2>
 
     <div class="grid grid-cols-1 md:grid-cols-3 auto-rows-[minmax(160px,auto)] gap-4">
-
-      <!-- Frontend — full width -->
-      <div
-        data-scroll-reveal
-        data-tilt
-        class="md:col-span-3 bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-6 flex flex-col gap-4 transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg hover:shadow-black/30"
-      >
-        <span class={`${frontend.accent} text-xs font-mono uppercase tracking-widest`}>{frontend.label}</span>
-        <div class="flex flex-wrap gap-2">
-          {frontend.skills.map((skill) => <TechBadge label={skill} />)}
+      {skillCategories.map((category) => (
+        <div
+          data-scroll-reveal
+          data-tilt
+          class:list={[
+            'bg-surface backdrop-blur-md border border-stroke rounded-2xl p-6 flex flex-col gap-4 transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg hover:shadow-black/30',
+            colSpanClass[category.colSpan ?? 1],
+          ]}
+        >
+          <span class:list={[category.accent, 'text-xs font-mono uppercase tracking-widest']}>{category.label}</span>
+          <div class="flex flex-wrap gap-2">
+            {category.skills.map((skill) => <TechBadge label={skill} />)}
+          </div>
         </div>
-      </div>
-
-      <!-- Backend — 1 col -->
-      <div
-        data-scroll-reveal
-        data-tilt
-        class="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-6 flex flex-col gap-4 transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg hover:shadow-black/30"
-      >
-        <span class={`${backend.accent} text-xs font-mono uppercase tracking-widest`}>{backend.label}</span>
-        <div class="flex flex-wrap gap-2">
-          {backend.skills.map((skill) => <TechBadge label={skill} />)}
-        </div>
-      </div>
-
-      <!-- Database — 2 col -->
-      <div
-        data-scroll-reveal
-        data-tilt
-        class="md:col-span-2 bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-6 flex flex-col gap-4 transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg hover:shadow-black/30"
-      >
-        <span class={`${database.accent} text-xs font-mono uppercase tracking-widest`}>{database.label}</span>
-        <div class="flex flex-wrap gap-2">
-          {database.skills.map((skill) => <TechBadge label={skill} />)}
-        </div>
-      </div>
-
-      <!-- Tools — 2 col -->
-      <div
-        data-scroll-reveal
-        data-tilt
-        class="md:col-span-2 bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-6 flex flex-col gap-4 transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg hover:shadow-black/30"
-      >
-        <span class={`${tools.accent} text-xs font-mono uppercase tracking-widest`}>{tools.label}</span>
-        <div class="flex flex-wrap gap-2">
-          {tools.skills.map((skill) => <TechBadge label={skill} />)}
-        </div>
-      </div>
-
-      <!-- Methodology — 1 col -->
-      <div
-        data-scroll-reveal
-        data-tilt
-        class="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-6 flex flex-col gap-4 transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg hover:shadow-black/30"
-      >
-        <span class={`${methodology.accent} text-xs font-mono uppercase tracking-widest`}>{methodology.label}</span>
-        <div class="flex flex-wrap gap-2">
-          {methodology.skills.map((skill) => <TechBadge label={skill} />)}
-        </div>
-      </div>
-
+      ))}
     </div>
   </div>
 </section>
