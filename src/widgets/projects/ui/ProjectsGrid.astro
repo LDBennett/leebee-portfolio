@@ -6,14 +6,16 @@ const projects = await getProjects();
 const noteSlugs = await getProjectNoteSlugs();
 ---
 
-<section id="projects" class="max-w-4xl mx-auto px-8 py-16">
-  <p class="text-accent text-xs font-mono uppercase tracking-widest mb-2">Work</p>
-  <h2 class="text-primary text-3xl font-bold mb-8">Projects</h2>
+<section id="projects" class="mx-auto max-w-4xl px-8 py-16">
+  <p class="text-accent mb-2 font-mono text-xs tracking-widest uppercase">Work</p>
+  <h2 class="text-primary mb-8 text-3xl font-bold">Projects</h2>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 auto-rows-[minmax(180px,auto)] gap-4">
-    {projects.map((project) => (
-      <ProjectCard project={project} hasNotes={noteSlugs.has(project.id)} />
-    ))}
+  <div class="grid auto-rows-[minmax(180px,auto)] grid-cols-1 gap-4 md:grid-cols-2">
+    {
+      projects.map((project) => (
+        <ProjectCard project={project} hasNotes={noteSlugs.has(project.id)} />
+      ))
+    }
   </div>
 </section>
 

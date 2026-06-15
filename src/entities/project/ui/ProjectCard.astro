@@ -11,11 +11,14 @@ const { project, hasNotes } = Astro.props;
 
 const primaryUrl = hasNotes
   ? `/projects/${project.id}`
-  : project.data.liveUrl ?? project.data.repoUrl ?? null;
+  : (project.data.liveUrl ?? project.data.repoUrl ?? null);
 
 const Tag = primaryUrl ? 'a' : 'div';
 const tagProps = primaryUrl
-  ? { href: primaryUrl, ...(primaryUrl.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {}) }
+  ? {
+      href: primaryUrl,
+      ...(primaryUrl.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {}),
+    }
   : {};
 ---
 
@@ -23,69 +26,80 @@ const tagProps = primaryUrl
   {...tagProps}
   data-scroll-reveal
   data-tilt
-  class="bg-surface backdrop-blur-md border border-stroke rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg hover:shadow-black/30 group"
+  class="bg-surface border-stroke group flex flex-col justify-between rounded-2xl border p-6 backdrop-blur-md transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg hover:shadow-black/30"
 >
   <div>
     <div class="flex items-center justify-between">
-      <span class="text-highlight text-xs font-mono uppercase tracking-widest">
+      <span class="text-highlight font-mono text-xs tracking-widest uppercase">
         {project.data.type ?? 'Project'}
       </span>
-      <span class="text-muted text-xs font-mono">
+      <span class="text-muted font-mono text-xs">
         {project.data.startDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
       </span>
     </div>
-    <h3 class="text-primary text-xl font-semibold mt-2">{project.data.title}</h3>
-    <p class="text-body text-sm mt-2 leading-relaxed">{project.data.description}</p>
-    {project.data.note && (
-      <p class="mt-2 text-xs italic text-muted/70">{project.data.note}</p>
-    )}
+    <h3 class="text-primary mt-2 text-xl font-semibold">{project.data.title}</h3>
+    <p class="text-body mt-2 text-sm leading-relaxed">{project.data.description}</p>
+    {project.data.note && <p class="text-muted/70 mt-2 text-xs italic">{project.data.note}</p>}
   </div>
 
   <div class="mt-6 flex items-center gap-3">
-    {project.data.repoUrl && (
-      <Icon
-        name="simple-icons:github"
-        size={14}
-        class="text-muted/60 shrink-0 transition-colors duration-200 group-hover:text-muted"
-        aria-hidden="true"
-      />
-    )}
-    {project.data.liveUrl && (
-      <span class="text-muted text-xs font-mono transition-colors duration-200 group-hover:text-secondary">
-        {new URL(project.data.liveUrl).hostname}
-      </span>
-    )}
+    {
+      project.data.repoUrl && (
+        <Icon
+          name="simple-icons:github"
+          size={14}
+          class="text-muted/60 group-hover:text-muted shrink-0 transition-colors duration-200"
+          aria-hidden="true"
+        />
+      )
+    }
+    {
+      project.data.liveUrl && (
+        <span class="text-muted group-hover:text-secondary font-mono text-xs transition-colors duration-200">
+          {new URL(project.data.liveUrl).hostname}
+        </span>
+      )
+    }
 
     <div class="ml-auto flex items-center gap-3">
       <!-- Preview icon + floating panel -->
-      <div class="relative group/preview">
+      <div class="group/preview relative">
         <button
           type="button"
           aria-label="Preview screenshot"
-          class="flex items-center text-muted/50 transition-colors duration-200 hover:text-muted focus:text-muted focus:outline-none"
+          class="text-muted/50 hover:text-muted focus:text-muted flex items-center transition-colors duration-200 focus:outline-none"
           data-preview-btn
         >
           <Icon name="lucide:eye" size={14} aria-hidden="true" />
         </button>
 
-        <div class="pointer-events-none absolute bottom-full right-0 z-50 mb-3 w-64 translate-y-1 opacity-0 transition-all duration-200 group-hover/preview:pointer-events-auto group-hover/preview:translate-y-0 group-hover/preview:opacity-100 group-focus-within/preview:pointer-events-auto group-focus-within/preview:translate-y-0 group-focus-within/preview:opacity-100">
-          <div class="overflow-hidden rounded-xl border border-stroke shadow-2xl shadow-black/60">
-            <div class="flex aspect-video items-center justify-center bg-canvas/90">
+        <div
+          class="pointer-events-none absolute right-0 bottom-full z-50 mb-3 w-64 translate-y-1 opacity-0 transition-all duration-200 group-focus-within/preview:pointer-events-auto group-focus-within/preview:translate-y-0 group-focus-within/preview:opacity-100 group-hover/preview:pointer-events-auto group-hover/preview:translate-y-0 group-hover/preview:opacity-100"
+        >
+          <div class="border-stroke overflow-hidden rounded-xl border shadow-2xl shadow-black/60">
+            <div class="bg-canvas/90 flex aspect-video items-center justify-center">
               <div class="text-center">
-                <Icon name="lucide:image" size={24} class="mx-auto mb-2 text-accent/20" aria-hidden="true" />
-                <span class="font-mono text-xs text-muted/40">screenshot coming soon</span>
+                <Icon
+                  name="lucide:image"
+                  size={24}
+                  class="text-accent/20 mx-auto mb-2"
+                  aria-hidden="true"
+                />
+                <span class="text-muted/40 font-mono text-xs">screenshot coming soon</span>
               </div>
             </div>
           </div>
-          <div class="mt-1.5 text-right font-mono text-xs text-muted/40">{project.data.title}</div>
+          <div class="text-muted/40 mt-1.5 text-right font-mono text-xs">{project.data.title}</div>
         </div>
       </div>
 
-      {hasNotes && (
-        <span class="text-muted/60 text-xs font-mono transition-colors duration-200 group-hover:text-highlight">
-          deep dive →
-        </span>
-      )}
+      {
+        hasNotes && (
+          <span class="text-muted/60 group-hover:text-highlight font-mono text-xs transition-colors duration-200">
+            deep dive →
+          </span>
+        )
+      }
     </div>
   </div>
 </Tag>

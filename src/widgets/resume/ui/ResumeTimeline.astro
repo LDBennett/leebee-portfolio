@@ -4,27 +4,29 @@ import { ResumeEntry, getResumeEntries, formatDate } from '@entities/resume';
 const entries = await getResumeEntries();
 ---
 
-<section id="resume" class="max-w-4xl mx-auto px-8 py-16">
-  <p class="text-accent text-xs font-mono uppercase tracking-widest mb-2">Career</p>
-  <h2 class="text-primary text-3xl font-bold mb-10">Experience</h2>
+<section id="resume" class="mx-auto max-w-4xl px-8 py-16">
+  <p class="text-accent mb-2 font-mono text-xs tracking-widest uppercase">Career</p>
+  <h2 class="text-primary mb-10 text-3xl font-bold">Experience</h2>
 
   <div>
-    {entries.map((entry) => (
-      <div class="flex gap-0" data-scroll-reveal>
-        <div class="w-28 shrink-0 text-right pr-6 pt-1.5">
-          <span class="text-muted text-xs font-mono">{formatDate(entry.data.startDate)}</span>
-          <span class="text-muted/30 text-xs font-mono block">–</span>
-          <span class="text-muted text-xs font-mono block">
-            {entry.data.endDate ? formatDate(entry.data.endDate) : 'Present'}
-          </span>
-        </div>
+    {
+      entries.map((entry) => (
+        <div class="flex gap-0" data-scroll-reveal>
+          <div class="w-28 shrink-0 pt-1.5 pr-6 text-right">
+            <span class="text-muted font-mono text-xs">{formatDate(entry.data.startDate)}</span>
+            <span class="text-muted/30 block font-mono text-xs">–</span>
+            <span class="text-muted block font-mono text-xs">
+              {entry.data.endDate ? formatDate(entry.data.endDate) : 'Present'}
+            </span>
+          </div>
 
-        <div class="relative border-l border-stroke pl-8 pb-12 flex-1">
-          <div class="absolute -left-1.25 top-1.5 w-2.5 h-2.5 rounded-full bg-highlight border-2 border-canvas" />
-          <ResumeEntry entry={entry} />
+          <div class="border-stroke relative flex-1 border-l pb-12 pl-8">
+            <div class="bg-highlight border-canvas absolute top-1.5 -left-1.25 h-2.5 w-2.5 rounded-full border-2" />
+            <ResumeEntry entry={entry} />
+          </div>
         </div>
-      </div>
-    ))}
+      ))
+    }
   </div>
 </section>
 
