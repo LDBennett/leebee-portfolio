@@ -1,24 +1,53 @@
 ---
+import { Icon } from 'astro-icon/components';
 import type { ResumeEntry } from '../types/index';
 
 interface Props {
   entry: ResumeEntry;
+  hasNotes: boolean;
 }
 
-const { entry } = Astro.props;
+const { entry, hasNotes } = Astro.props;
 
 const visibleTags = entry.data.tags.slice(0, 3);
 const overflowCount = entry.data.tags.length - 3;
+
+const Tag = hasNotes ? 'a' : 'div';
+const tagProps = hasNotes ? { href: `/resume/${entry.id}` } : {};
 ---
 
-<div>
-  <h3 class="text-primary font-semibold">{entry.data.role}</h3>
-  <p class="text-secondary text-sm">{entry.data.company}</p>
+<Tag {...tagProps}>
+  <div class="flex items-start justify-between gap-3">
+    <div class="min-w-0 flex-1">
+      <h3
+        class:list={[
+          'font-semibold transition-colors duration-200',
+          hasNotes ? 'text-primary group-hover:text-highlight' : 'text-primary',
+        ]}
+      >
+        {entry.data.role}
+      </h3>
+      <p class="text-secondary text-sm">{entry.data.company}</p>
+    </div>
+
+    {
+      hasNotes && (
+        <Icon
+          name="lucide:arrow-up-right"
+          size={16}
+          class="text-highlight/40 mt-0.5 shrink-0 transition-colors duration-200 group-hover:text-highlight"
+          aria-hidden="true"
+        />
+      )
+    }
+  </div>
+
   {
     entry.data.description && (
       <p class="text-muted mt-1.5 text-sm leading-relaxed">{entry.data.description}</p>
     )
   }
+
   <div class="mt-3 flex flex-wrap gap-1.5">
     {
       visibleTags.map((tag) => (
@@ -27,10 +56,6 @@ const overflowCount = entry.data.tags.length - 3;
         </span>
       ))
     }
-    {
-      overflowCount > 0 && (
-        <span class="text-muted/40 px-1 font-mono text-xs">+{overflowCount}</span>
-      )
-    }
+    {overflowCount > 0 && <span class="text-muted/40 px-1 font-mono text-xs">+{overflowCount}</span>}
   </div>
-</div>
+</Tag>

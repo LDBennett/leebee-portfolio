@@ -1,0 +1,31 @@
+---
+interface Props {
+  backHref: string;
+  backLabel: string;
+}
+
+const { backHref, backLabel } = Astro.props;
+---
+
+<div class="min-h-screen px-8 py-16">
+  <div class="mx-auto max-w-3xl">
+    <a
+      href={backHref}
+      class="mb-10 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-muted/60 transition-colors duration-200 hover:text-accent"
+    >
+      ← {backLabel}
+    </a>
+
+    <div class="mb-12">
+      <slot name="header" />
+    </div>
+
+    <div class="note-prose">
+      <slot />
+    </div>
+
+    <div class="mt-12 border-t border-stroke-subtle pt-8">
+      <slot name="footer" />
+    </div>
+  </div>
+</div>

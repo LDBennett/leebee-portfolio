@@ -1,0 +1,64 @@
+---
+import { render } from 'astro:content';
+import { getResumeNote, getResumeNotes } from '@entities/resumeNote';
+import { getResumeEntry, formatDate } from '@entities/resume';
+import { BaseLayout, NotePageLayout } from '@shared/ui';
+
+export async function getStaticPaths() {
+  const notes = await getResumeNotes();
+  return notes.map((note) => ({ params: { slug: note.id } }));
+}
+
+const { slug } = Astro.params;
+const note = await getResumeNote(slug);
+const entry = await getResumeEntry(slug);
+
+if (!note || !entry) return Astro.redirect('/');
+
+const { Content } = await render(note);
+const { data } = entry;
+---
+
+<BaseLayout title={`${data.role} at ${data.company}`}>
+  <NotePageLayout backHref="/#resume" backLabel="Back to Experience">
+    <Fragment slot="header">
+      <div class="mb-1 font-mono text-xs uppercase tracking-widest text-accent">
+        {formatDate(data.startDate)} – {data.endDate ? formatDate(data.endDate) : 'Present'}
+      </div>
+      <h1 class="text-4xl font-bold tracking-tight text-primary">{data.role}</h1>
+      <p class="mt-1 text-lg text-secondary">{data.company}</p>
+      {
+        data.description && (
+          <p class="mt-4 max-w-xl text-base leading-relaxed text-body">{data.description}</p>
+        )
+      }
+      {
+        data.highlights.length > 0 && (
+          <ul class="mt-6 space-y-2">
+            {data.highlights.map((h) => (
+              <li class="flex gap-2 text-sm leading-relaxed text-secondary">
+                <span class="mt-0.5 shrink-0 text-highlight">›</span>
+                <span>{h}</span>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </Fragment>
+
+    <Content />
+
+    <Fragment slot="footer">
+      <p class="mb-3 font-mono text-xs uppercase tracking-widest text-muted/50">Stack</p>
+      <div class="flex flex-wrap gap-2">
+        {
+          data.tags.map((tag) => (
+            <span class="rounded-md border border-stroke-subtle bg-surface-subtle px-2.5 py-1 font-mono text-xs text-muted">
+              {tag}
+            </span>
+          ))
+        }
+      </div>
+    </Fragment>
+  </NotePageLayout>
+</BaseLayout>

@@ -5,35 +5,35 @@ import { SocialLink } from '@shared/ui';
 const year = new Date().getFullYear();
 ---
 
-<footer class="border-t border-stroke-subtle mt-16">
-  <div class="max-w-4xl mx-auto px-8 py-10 flex flex-col sm:flex-row items-center justify-between gap-6">
-
-    <div class="flex flex-col items-center sm:items-start gap-1">
+<footer class="border-stroke-subtle mt-16 border-t">
+  <div
+    class="mx-auto flex max-w-4xl flex-col items-center justify-between gap-6 px-8 py-10 sm:flex-row"
+  >
+    <div class="flex flex-col items-center gap-1 sm:items-start">
       <span class="text-primary font-semibold">Lee Bennett</span>
-      <span class="text-muted text-xs font-mono">&copy; {year} — Built with Astro</span>
+      <span class="text-muted font-mono text-xs">&copy; {year} </span>
+
+      <div class="flex items-center gap-6">
+        <SocialLink href="https://github.com/LDBennett" label="GitHub">
+          <Icon name="simple-icons:github" size={18} aria-hidden="true" />
+        </SocialLink>
+
+        <SocialLink href="https://linkedin.com/in/LDBennett" label="LinkedIn">
+          <Icon name="simple-icons:linkedin" size={18} aria-hidden="true" />
+        </SocialLink>
+
+        <SocialLink href="mailto:ldbennett@gmail.com" label="Email" external={false}>
+          <Icon name="lucide:mail" size={18} aria-hidden="true" />
+        </SocialLink>
+
+        <a
+          href="#"
+          class="text-muted hover:text-highlight ml-2 font-mono text-xs transition-colors duration-200"
+          aria-label="Back to top"
+        >
+          ↑ top
+        </a>
+      </div>
     </div>
-
-    <div class="flex items-center gap-6">
-      <SocialLink href="https://github.com/LDBennett" label="GitHub">
-        <Icon name="simple-icons:github" size={18} aria-hidden="true" />
-      </SocialLink>
-
-      <SocialLink href="https://linkedin.com/in/LDBennett" label="LinkedIn">
-        <Icon name="simple-icons:linkedin" size={18} aria-hidden="true" />
-      </SocialLink>
-
-      <SocialLink href="mailto:ldbennett@gmail.com" label="Email" external={false}>
-        <Icon name="lucide:mail" size={18} aria-hidden="true" />
-      </SocialLink>
-
-      <a
-        href="#"
-        class="text-muted hover:text-highlight text-xs font-mono transition-colors duration-200 ml-2"
-        aria-label="Back to top"
-      >
-        ↑ top
-      </a>
-    </div>
-
   </div>
 </footer>

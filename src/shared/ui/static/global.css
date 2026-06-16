@@ -46,7 +46,7 @@
 }
 
 /* Project notes MDX prose */
-.project-notes h2 {
+.note-prose h2 {
   font-size: 1.25rem;
   font-weight: 600;
   color: var(--color-primary);
@@ -56,7 +56,7 @@
   border-bottom: 1px solid var(--color-stroke-subtle);
 }
 
-.project-notes h3 {
+.note-prose h3 {
   font-size: 1rem;
   font-weight: 600;
   color: var(--color-muted);
@@ -64,27 +64,27 @@
   margin-bottom: 0.5rem;
 }
 
-.project-notes p {
+.note-prose p {
   font-size: 0.9375rem;
   line-height: 1.75;
   color: var(--color-secondary);
   margin-bottom: 1rem;
 }
 
-.project-notes ul {
+.note-prose ul {
   margin-bottom: 1rem;
   padding-left: 1.25rem;
   list-style-type: disc;
 }
 
-.project-notes li {
+.note-prose li {
   font-size: 0.9375rem;
   line-height: 1.75;
   color: var(--color-secondary);
   margin-bottom: 0.25rem;
 }
 
-.project-notes img {
+.note-prose img {
   width: 100%;
   border-radius: 0.75rem;
   border: 1px solid var(--color-stroke-subtle);
@@ -92,13 +92,13 @@
   margin-bottom: 1rem;
 }
 
-.project-notes a {
+.note-prose a {
   color: var(--color-accent);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
 
-.project-notes a:hover {
+.note-prose a:hover {
   color: var(--color-highlight);
 }
 
