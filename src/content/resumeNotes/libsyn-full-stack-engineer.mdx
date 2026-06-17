@@ -12,7 +12,7 @@ introduced:
   - Domain Driven Design
 ---
 
-Jan 2024 marked a shift in scope. I moved from contributing to the platform rebuild into leading it — making architecture decisions, setting frontend conventions, and owning integrations that touched external partners directly. The codebase was mid-migration and the team needed someone to drive the UI layer forward with conviction.
+Jan 2024 marked a shift in scope. I moved from contributing to the platform rebuild into leading it by making architecture decisions, setting frontend conventions, and owning integrations that touched external partners directly. The codebase was mid-migration and the team needed someone to drive the UI layer forward with conviction.
 
 ## Shipped Work
 
@@ -20,27 +20,29 @@ Jan 2024 marked a shift in scope. I moved from contributing to the platform rebu
 
 The platform UI had accumulated years of inconsistency across a mix of legacy PHP views and partially-migrated React pages. I led the decision to standardize on React Router 7 with TanStack Query, Form, and Table as the full frontend stack.
 
-This wasn't just a library swap — it meant establishing patterns the whole team would follow: how data fetching was colocated with routes, how forms handled optimistic updates and server errors, how large data tables managed pagination and sorting without prop drilling. I wrote the initial architecture docs and the first set of route modules to establish the conventions before the broader team adopted them.
+I really enjoyed working in this stack and wish we would have kept it going, but unfortunately, this was dropped to continue in Libsyn 5.
 
 ### Onboarding Milestone System
 
 New shows on Libsyn needed to complete a sequence of setup steps before they could distribute to Apple Podcasts, Spotify, or enroll in advertising. The existing flow had no concept of progress — users would abandon mid-setup with no indication of what was left or why it mattered.
 
-I designed and built the milestone system from scratch: a flexible event-tracking layer that recorded completion of discrete setup actions (feed configuration, episode upload, billing, distribution submission) and surfaced them as a guided checklist UI. The system drove measurable improvements in show setup completion and directly enabled faster advertising enrollment for new creators.
+Going back to Lisyn 5, I designed and built the milestone system: a flexible event-tracking layer that recorded completion of discrete setup actions (feed configuration, episode upload, settings, destination submission) and surfaced them as a guided checklist. The system drove measurable improvements in show setup completion and directly enabled faster advertising enrollment for new creators.
 
 ### Spotify Video Integration
 
-Libsyn added support for video podcasts distributed to Spotify. I built the end-to-end integration on the platform side — the feed generation changes, the submission handshake with Spotify's ingestion API, and the creator-facing UI for enabling video distribution on a show.
-
-The tricky part was handling the state machine around submission status: Spotify's pipeline is async, so the UI needed to reflect pending, approved, and error states without polling aggressively. I built a status-tracking layer using TanStack Query's background refetch with exponential backoff.
+Libsyn added support for video podcasts distributed to Spotify. I built the front-end integration for enabling video distribution on a show. It included the various settings pages and a big redesign of the entire destiantions page.
 
 ### Spotify Audience Network (SAI)
 
-Programmatic ad insertion via Spotify's Audience Network was a revenue-critical integration for monetization-eligible shows. I built the creator enrollment flow and the backend hooks that connected show configuration to Spotify's SAI requirements — including show-level eligibility checks, opt-in confirmation, and feed attribute injection that SAI required for ad targeting.
+Programmatic ad insertion via Spotify's Audience Network was a critical integration for monetization. I built the creator enrollment flow and front-end configuration to Spotify's SAI requirements (show-level eligibility checks, opt-in confirmation, advertisement category approval, etc.).
 
 ### AI-Assisted Development Workflows
 
-Integrated Claude and GitHub Copilot into day-to-day development — primarily for accelerating boilerplate-heavy tasks like writing migration scripts, scaffolding new route modules to established patterns, and drafting test cases for complex business logic. The bigger unlock was using AI to prototype integration behavior against Spotify's API docs before writing production code, which shortened the feedback loop significantly.
+Integrated Claude and GitHub Copilot into day-to-day development. This was primarily for accelerating tasks like writing scripts, scaffolding new routes, and ensuring I was following Domain Driven Development Principles.
+
+### New Podcast Page
+
+With Domain Driven Development in mind, I created a new podcast page for the platform. Instead of utilizing PHP and Zend for data and rendering, this would instead be self-contained and use an API to fetch show and episode information. This new type of page has not released as of yet.
 
 ## Skills in Context
 
