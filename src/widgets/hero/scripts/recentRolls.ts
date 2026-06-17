@@ -18,8 +18,10 @@ async function updateRecentRolls() {
     const { recentSession }: { recentSession: RecentSession } = await res.json();
     if (!recentSession?.rolls?.length) return;
 
+    const isMobile = window.matchMedia('(max-width: 639px)').matches;
+    const count = isMobile ? 2 : 3;
     container.innerHTML = '';
-    recentSession.rolls.slice(0, 3).forEach((roll, i) => {
+    recentSession.rolls.slice(0, count).forEach((roll, i) => {
       if (i > 0) {
         const sep = document.createElement('span');
         sep.textContent = '·';
