@@ -45,16 +45,6 @@ import HeroNavCard from './Hero.NavCard.astro';
             </div>
           </div>
 
-          <!-- Hidden dice icon library — cloned by liveData.ts at runtime -->
-          <div hidden aria-hidden="true">
-            {
-              ([4, 6, 8, 10, 12, 20] as const).map((n) => (
-                <span data-die-icon={n}>
-                  <Icon name={`mdi:dice-d${n}`} size={30} class="text-dice/70" />
-                </span>
-              ))
-            }
-          </div>
           <div class="flex items-center gap-2">
             <div
               class="border-stroke-subtle bg-surface-subtle flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1.5"
@@ -65,6 +55,17 @@ import HeroNavCard from './Hero.NavCard.astro';
             <span class="text-secondary text-xs" data-now-playing>—</span>
           </div>
         </div>
+      </div>
+
+      <!-- Hidden dice icon library — cloned by recentRolls.ts at runtime -->
+      <div hidden aria-hidden="true">
+        {
+          ([4, 6, 8, 10, 12, 20] as const).map((n) => (
+            <span data-die-icon={n}>
+              <Icon name={`mdi:dice-d${n}`} size={30} class="text-dice/70" />
+            </span>
+          ))
+        }
       </div>
 
       <div class="border-stroke-subtle mt-8 flex items-center justify-between border-t pt-6">
@@ -120,5 +121,8 @@ import HeroNavCard from './Hero.NavCard.astro';
   import '../scripts/typewriter.ts';
 </script>
 <script>
-  import '../scripts/liveData.ts';
+  import '../scripts/nowPlaying.ts';
+</script>
+<script>
+  import '../scripts/recentRolls.ts';
 </script>
