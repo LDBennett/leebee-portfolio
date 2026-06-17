@@ -1,0 +1,37 @@
+---
+keyWins:
+  - Platform rebuild contributor
+  - Quota microservice
+  - Event-driven architecture
+introduced:
+  - Remix
+  - Kafka
+  - Microservices
+  - Vitest
+---
+
+Jul 2022 was a turning point for the platform. Libsyn had committed to a full rebuild — moving off a legacy PHP/Zend stack and into a modern TypeScript monorepo. I stepped into a more senior contributor role, working across the frontend rebuild and taking on a standalone backend microservice.
+
+## Shipped Work
+
+### Platform Rebuild — Remix + TypeScript
+
+The existing platform was a multi-year accumulation of PHP views, jQuery, and React islands bolted onto a Zend Framework backend. The decision was made to rewrite it top-to-bottom in Remix and TypeScript.
+
+I contributed frontend development across several core platform areas during the rebuild — building out route modules, data loaders, and form actions using Remix's file-based routing model. The shift to Remix's server/client model required rethinking how we'd previously handled data fetching and mutations, and TypeScript added a layer of confidence across a codebase that had historically been loosely typed.
+
+### Quota Microservice
+
+As part of the platform modernization, storage and bandwidth quota enforcement needed to move out of the monolith and into its own service. I designed and built the quota microservice in TypeScript, using Kafka as the messaging backbone.
+
+The service consumed events from the rest of the platform — episode uploads, file processing completions, distribution events — and maintained per-account quota state in response. The Kafka integration meant the service was fully decoupled from the request cycle; quota updates happened asynchronously without blocking platform operations.
+
+## Skills in Context
+
+**Remix** — first time using Remix in production; the server/client model and file-based routing were a significant shift from the SPA patterns I'd worked with before.
+
+**Kafka** — used for async event consumption in the quota service. Learned producer/consumer patterns and partition management in a real production context.
+
+**TypeScript** — first role where TypeScript was the default across both frontend and backend. The discipline of typing API responses and domain models was a step change from the JavaScript-first approach in previous roles.
+
+**Vitest** — replaced Jest for unit testing in the TypeScript stack; faster and better integrated with Vite.

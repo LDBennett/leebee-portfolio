@@ -1,30 +1,55 @@
 ---
+keyWins:
+  - Led UI modernization
+  - Onboarding milestone system
+  - Spotify Video & SAI integrations
+  - AI-assisted dev workflows
+introduced:
+  - React Router 7
+  - TanStack Query
+  - TanStack Form
+  - TanStack Table
+  - Domain Driven Design
 ---
 
-## Summary
+Jan 2024 marked a shift in scope. I moved from contributing to the platform rebuild into leading it — making architecture decisions, setting frontend conventions, and owning integrations that touched external partners directly. The codebase was mid-migration and the team needed someone to drive the UI layer forward with conviction.
 
-Video Game Backlog Bunker is a personal project born out of a real problem: too many games, not enough memory for which ones were worth finishing. The goal was a clean, fast app for tracking a gaming backlog with minimal friction.
+## Shipped Work
 
-## Approach
+### Frontend Modernization — React Router 7 + TanStack
 
-_Fill this in — e.g. why you chose the stack, how state is managed, any interesting patterns._
+The platform UI had accumulated years of inconsistency across a mix of legacy PHP views and partially-migrated React pages. I led the decision to standardize on React Router 7 with TanStack Query, Form, and Table as the full frontend stack.
 
-## Pages
+This wasn't just a library swap — it meant establishing patterns the whole team would follow: how data fetching was colocated with routes, how forms handled optimistic updates and server errors, how large data tables managed pagination and sorting without prop drilling. I wrote the initial architecture docs and the first set of route modules to establish the conventions before the broader team adopted them.
 
-### Dashboard
+### Onboarding Milestone System
 
-_Describe what the main view shows and what a user can do here._
+New shows on Libsyn needed to complete a sequence of setup steps before they could distribute to Apple Podcasts, Spotify, or enroll in advertising. The existing flow had no concept of progress — users would abandon mid-setup with no indication of what was left or why it mattered.
 
-### Game Detail
+I designed and built the milestone system from scratch: a flexible event-tracking layer that recorded completion of discrete setup actions (feed configuration, episode upload, billing, distribution submission) and surfaced them as a guided checklist UI. The system drove measurable improvements in show setup completion and directly enabled faster advertising enrollment for new creators.
 
-_Describe the detail view — what data is shown, how it's edited._
+### Spotify Video Integration
 
-## Screenshots
+Libsyn added support for video podcasts distributed to Spotify. I built the end-to-end integration on the platform side — the feed generation changes, the submission handshake with Spotify's ingestion API, and the creator-facing UI for enabling video distribution on a show.
 
-### Desktop
+The tricky part was handling the state machine around submission status: Spotify's pipeline is async, so the UI needed to reflect pending, approved, and error states without polling aggressively. I built a status-tracking layer using TanStack Query's background refetch with exponential backoff.
 
-### Mobile
+### Spotify Audience Network (SAI)
 
-## What I'd do differently
+Programmatic ad insertion via Spotify's Audience Network was a revenue-critical integration for monetization-eligible shows. I built the creator enrollment flow and the backend hooks that connected show configuration to Spotify's SAI requirements — including show-level eligibility checks, opt-in confirmation, and feed attribute injection that SAI required for ad targeting.
 
-_Fill this in when you have thoughts._
+### AI-Assisted Development Workflows
+
+Integrated Claude and GitHub Copilot into day-to-day development — primarily for accelerating boilerplate-heavy tasks like writing migration scripts, scaffolding new route modules to established patterns, and drafting test cases for complex business logic. The bigger unlock was using AI to prototype integration behavior against Spotify's API docs before writing production code, which shortened the feedback loop significantly.
+
+## Skills in Context
+
+**React Router 7** — used for both client-side navigation and as the data layer (loaders/actions), not just routing. Replaced a patchwork of `useEffect`-driven fetching.
+
+**TanStack Query** — managed all server state: background refetches, cache invalidation on mutations, and the async status polling for Spotify submission states.
+
+**TanStack Form** — handled complex multi-step forms with field-level validation and submission state, replacing ad-hoc controlled component patterns.
+
+**TanStack Table** — powered the episode management and analytics tables with virtualization and server-side pagination.
+
+**Domain Driven Design** — applied bounded context thinking to the platform's feature areas, keeping podcast feed logic, monetization, and distribution as separate concerns rather than a single sprawling data model.

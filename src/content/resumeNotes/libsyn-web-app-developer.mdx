@@ -1,0 +1,45 @@
+---
+keyWins:
+  - Core embedded player
+  - Analytics dashboards
+  - Shared component library
+introduced:
+  - React
+  - Vite
+  - Data visualization
+  - Localization
+---
+
+Feb 2021 marked the shift from jQuery and PHP templating to React as the primary frontend tool. The platform moving from it's 4th iteration to the 5th. I created some of the most user-facing pieces of the platform.
+
+## Shipped Work
+
+### Analytics Dashboards
+
+Podcasters depend on Libsyn's analytics to understand their audience (download counts, geographic distribution, app breakdowns). I built the analytics dashboards that surfaced this data, integrating charting and mapping libraries to visualize their show data. In addition, I also wrote the exporting logic so users could download their stats.
+
+A big challenge for stats was performance. The data sets are huge and the UI needed to stay responsive as users filtered by date range, episode, destination, etc.
+
+### Shared UI Component Library
+
+As React adoption grew across the platform, consistency became a problem. The same UI patterns were being reinvented in different parts of the codebase. I engineered the shared component library that standardized these patterns.
+
+The library included data visualization components (charts, maps), localization support for international users, and the core UI elements used across the platform.
+
+### Personal Podcast Websites
+
+Libsyn offered creators the ability to host their own podcast website. I developed and maintained the templating system and feature set for these personal sites. In addition to the site itself, I created the corresponding portion in the Libsyn 5 platform settings.
+
+### Core Embedded Podcast Player
+
+Developed and maintained the platform’s embed player, a high-traffic asset used by thousands of podcasters on external sites. I handled the frontend engineering to ensure it worked reliably across all browsers and contexts (iFrame inconsistencies). This was probably the part of the product I worked on that I am most proud of.
+
+## Skills in Context
+
+**React** — first production role using React. Moved from jQuery/vanilla JS to component-based thinking; the shift to unidirectional data flow and reusable components changed how I approached UI problems.
+
+**Vite** — replaced the previous build tooling; dramatically faster development feedback loop.
+
+**SASS/SCSS + BEM** — the codebase used SCSS with BEM naming conventions for all non-React styling. I adopted BEM strictly here, which later influenced my preference for utility-first approaches.
+
+**React Bootstrap** — used for rapid UI scaffolding within the component library; later moved away from it in favor of custom components.

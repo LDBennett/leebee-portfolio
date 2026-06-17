@@ -14,21 +14,31 @@ const noteSlugs = await getResumeNoteSlugs();
     {
       entries.map((entry) => (
         <div class="group flex gap-0" data-scroll-reveal>
-          <div class="w-28 shrink-0 pt-1.5 pr-6 text-right">
-            <span class="text-muted group-hover:text-secondary font-mono text-xs transition-colors duration-300">
-              {formatDate(entry.data.startDate)}
+          {/* Date column — desktop only */}
+          <div class="hidden w-28 shrink-0 pt-1.5 pr-6 text-right sm:block">
+            <span class="text-muted font-mono text-xs transition-colors duration-300 group-hover:text-secondary">
+              {entry.data.endDate ? formatDate(entry.data.endDate) : 'Present'}
             </span>
-            <span class="text-muted/30 group-hover:text-secondary/50 block font-mono text-xs transition-colors duration-300">
+            <span class="text-muted/30 block font-mono text-xs transition-colors duration-300 group-hover:text-secondary/50">
               –
             </span>
-            <span class="text-muted group-hover:text-secondary block font-mono text-xs transition-colors duration-300">
-              {entry.data.endDate ? formatDate(entry.data.endDate) : 'Present'}
+            <span class="text-muted block font-mono text-xs transition-colors duration-300 group-hover:text-secondary">
+              {formatDate(entry.data.startDate)}
             </span>
           </div>
 
-          <div class="border-stroke relative flex-1 border-l pb-12 pl-8">
-            <div class="bg-highlight border-canvas absolute top-1.5 -left-1.25 h-2.5 w-2.5 rounded-full border-2 transition-all duration-400 ease-out group-hover:-left-0.5 group-hover:h-full group-hover:w-1 group-hover:border-0" />
-            <div class="origin-top-left transition-all duration-300 ease-out group-hover:translate-x-3 group-hover:scale-[1.02]">
+          <div class="border-stroke relative flex-1 border-l pb-10 pl-6 sm:pb-12 sm:pl-8">
+            <div class="bg-highlight border-canvas absolute top-1.5 -left-1.25 h-2.5 w-2.5 rounded-full border-2 transition-all duration-400 ease-out sm:group-hover:-left-0.5 sm:group-hover:h-3/4 sm:group-hover:w-1 sm:group-hover:border-0" />
+
+            {/* Mobile date — single line, hidden on desktop */}
+            <div class="mb-2 sm:hidden">
+              <span class="text-muted font-mono text-xs">
+                {formatDate(entry.data.startDate)} –{' '}
+                {entry.data.endDate ? formatDate(entry.data.endDate) : 'Present'}
+              </span>
+            </div>
+
+            <div class="origin-top-left transition-all duration-300 ease-out sm:group-hover:translate-x-3 sm:group-hover:scale-[1.02]">
               <ResumeEntry entry={entry} hasNotes={noteSlugs.has(entry.id)} />
             </div>
           </div>

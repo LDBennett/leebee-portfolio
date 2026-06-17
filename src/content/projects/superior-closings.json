@@ -5,10 +5,11 @@
   "startDate": "2020-11-01",
   "featured": true,
   "note": "Built in 2020 — planning to modernize this one.",
-  "liveUrl": "https://www.superiorclosings.com/",
+  "liveUrl": "https://superiorclosings.com/",
   "repoUrl": "https://github.com/LDBennett/superior-closings",
   "highlights": [
     "Designed and built a full business site for an active Western PA real estate closing firm serving agents, brokers, investors, and loan officers",
     "Responsive layout via React Bootstrap with custom SCSS theming to match the company's professional brand"
-  ]
+  ],
+  "previewImage": "/previews/superiorclosings.png"
 }

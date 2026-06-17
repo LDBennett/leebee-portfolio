@@ -23,5 +23,5 @@
     "Random game picker with carousel animation, filterable by status and mood tags that are auto-suggested from API genre data",
     "Supabase auth with RLS — protected routes via requireAuth(), public anonymous browsing via optionalAuth(), and a rich status model covering wishlist, replay, and backlog states"
   ],
-  "image": "/screenshots/digitalninjalee.png"
+  "previewImage": "/previews/digitalninjalee.png"
 }

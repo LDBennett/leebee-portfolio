@@ -11,12 +11,12 @@ const { backHref, backLabel } = Astro.props;
   <div class="mx-auto max-w-3xl">
     <a
       href={backHref}
-      class="mb-10 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-muted/60 transition-colors duration-200 hover:text-accent"
+      class="text-muted/60 hover:text-accent mb-10 inline-flex items-center gap-2 font-mono text-xs tracking-widest uppercase transition-colors duration-200"
     >
       ← {backLabel}
     </a>
 
-    <div class="mb-12">
+    <div class="mb-4">
       <slot name="header" />
     </div>
 
@@ -24,7 +24,7 @@ const { backHref, backLabel } = Astro.props;
       <slot />
     </div>
 
-    <div class="mt-12 border-t border-stroke-subtle pt-8">
+    <div class="border-stroke-subtle mt-12 border-t pt-8">
       <slot name="footer" />
     </div>
   </div>
