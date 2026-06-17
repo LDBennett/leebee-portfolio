@@ -1,11 +1,17 @@
 ---
 interface Props {
   label: string;
+  tint?: string;
 }
 
-const { label } = Astro.props;
+const { label, tint } = Astro.props;
 ---
 
-<span class="bg-surface border border-stroke-subtle text-secondary text-xs font-mono px-2.5 py-1 rounded-full">
+<span
+  class:list={[
+    'border text-xs font-mono px-2.5 py-1 rounded-full',
+    tint ?? 'bg-surface border-stroke-subtle text-secondary',
+  ]}
+>
   {label}
 </span>

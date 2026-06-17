@@ -1,6 +1,7 @@
 ---
 import { TechBadge } from '@shared/ui';
 import { skillCategories } from '../api/skills';
+import { getBadgeTint } from '../utils/badgeTint';
 
 const colSpanClass: Record<number, string> = {
   1: '',
@@ -12,7 +13,7 @@ const colSpanClass: Record<number, string> = {
 <section id="skills" class="py-16 px-8">
   <div class="max-w-4xl mx-auto">
 
-    <p class="text-accent text-xs font-mono uppercase tracking-widest mb-2">Stack</p>
+    <p class="text-highlight text-xs font-mono uppercase tracking-widest mb-2">Stack</p>
     <h2 class="text-primary text-3xl font-bold mb-8">Skills & Tech</h2>
 
     <div class="grid grid-cols-1 md:grid-cols-3 auto-rows-[minmax(160px,auto)] gap-4">
@@ -27,7 +28,7 @@ const colSpanClass: Record<number, string> = {
         >
           <span class:list={[category.accent, 'text-xs font-mono uppercase tracking-widest']}>{category.label}</span>
           <div class="flex flex-wrap gap-2">
-            {category.skills.map((skill) => <TechBadge label={skill} />)}
+            {category.skills.map((skill) => <TechBadge label={skill} tint={getBadgeTint(category.color)} />)}
           </div>
         </div>
       ))}

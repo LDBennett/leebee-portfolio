@@ -9,8 +9,11 @@
   --color-body:      #dbeafe;    /* blue-100 — descriptions, copy */
   --color-secondary: #bfdbfe;    /* blue-200 — subtitles, company names */
   --color-muted:     #93c5fd;    /* blue-300 — dates, metadata, links at rest */
-  --color-accent:    #38bdf8;    /* sky-400  — section labels */
-  --color-highlight: #34d399;    /* emerald-400 — CTAs, hover, timeline dots */
+  --color-accent:    #38bdf8;    /* sky-400    — Career/Resume section color */
+  --color-highlight: #34d399;    /* emerald-400 — Stack/Skills section color */
+  --color-warm:      #fbbf24;    /* amber-400  — Work/Projects section color */
+  --color-gaming:    #a78bfa;    /* violet-400 — Now Playing card */
+  --color-dice:      #f87171;    /* red-400    — Last Roll / D&D card */
 
   /* Surfaces */
   --color-surface:        rgb(255 255 255 / 0.10);

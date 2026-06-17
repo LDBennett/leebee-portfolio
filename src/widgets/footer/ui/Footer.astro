@@ -12,28 +12,27 @@ const year = new Date().getFullYear();
     <div class="flex flex-col items-center gap-1 sm:items-start">
       <span class="text-primary font-semibold">Lee Bennett</span>
       <span class="text-muted font-mono text-xs">&copy; {year} </span>
+    </div>
+    <div class="flex items-center gap-6">
+      <SocialLink href="https://github.com/LDBennett" label="GitHub">
+        <Icon name="simple-icons:github" size={18} aria-hidden="true" />
+      </SocialLink>
 
-      <div class="flex items-center gap-6">
-        <SocialLink href="https://github.com/LDBennett" label="GitHub">
-          <Icon name="simple-icons:github" size={18} aria-hidden="true" />
-        </SocialLink>
+      <SocialLink href="https://linkedin.com/in/LDBennett" label="LinkedIn">
+        <Icon name="simple-icons:linkedin" size={18} aria-hidden="true" />
+      </SocialLink>
 
-        <SocialLink href="https://linkedin.com/in/LDBennett" label="LinkedIn">
-          <Icon name="simple-icons:linkedin" size={18} aria-hidden="true" />
-        </SocialLink>
+      <SocialLink href="mailto:ldbennett@gmail.com" label="Email" external={false}>
+        <Icon name="lucide:mail" size={18} aria-hidden="true" />
+      </SocialLink>
 
-        <SocialLink href="mailto:ldbennett@gmail.com" label="Email" external={false}>
-          <Icon name="lucide:mail" size={18} aria-hidden="true" />
-        </SocialLink>
-
-        <a
-          href="#"
-          class="text-muted hover:text-highlight ml-2 font-mono text-xs transition-colors duration-200"
-          aria-label="Back to top"
-        >
-          ↑ top
-        </a>
-      </div>
+      <a
+        href="#"
+        class="text-muted hover:text-highlight ml-2 font-mono text-xs transition-colors duration-200"
+        aria-label="Back to top"
+      >
+        ↑ top
+      </a>
     </div>
   </div>
 </footer>
