@@ -1,29 +1,75 @@
 ---
 import { Icon } from 'astro-icon/components';
 import { SocialLink } from '@shared/ui';
+import HeroNavCard from './Hero.NavCard.astro';
 ---
 
 <section class="flex min-h-screen items-center justify-center p-8">
   <div
-    class="grid w-full max-w-4xl auto-rows-[minmax(180px,auto)] grid-cols-1 gap-4 md:grid-cols-2"
+    class="grid w-full max-w-4xl auto-rows-[minmax(140px,auto)] grid-cols-1 gap-4 md:grid-cols-3"
   >
     <!-- Name / bio card -->
     <div
       data-hero-card
       data-tilt="4"
-      class="flex flex-col justify-between rounded-2xl border border-stroke bg-surface p-8 backdrop-blur-md transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg hover:shadow-black/30 md:col-span-2"
+      class="border-stroke bg-surface flex flex-col justify-between rounded-2xl border p-8 backdrop-blur-md transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg hover:shadow-black/30 md:col-span-3"
     >
       <div>
-        <p class="mb-3 font-mono text-xs tracking-widest text-accent uppercase">hello, I'm</p>
-        <h1 data-typewriter data-text="Lee Bennett" class="text-5xl font-bold tracking-tight text-primary"></h1>
-        <p class="mt-2 text-lg text-secondary">Full-Stack Engineer</p>
-        <p class="mt-4 max-w-lg text-sm leading-relaxed text-muted">
+        <p class="text-accent mb-3 font-mono text-xs tracking-widest uppercase">hello, I'm</p>
+        <h1
+          data-typewriter
+          data-text="Lee Bennett"
+          class="text-primary text-5xl font-bold tracking-tight"
+        >
+        </h1>
+        <p class="text-secondary mt-2 text-lg">Full-Stack Engineer</p>
+        <p class="text-muted mt-4 max-w-lg text-sm leading-relaxed">
           Over eight years of experience building content for the web
         </p>
+
+        <div class="mt-4 flex flex-col flex-wrap gap-4">
+          <div class="flex items-center gap-2">
+            <div
+              class="border-stroke-subtle bg-surface-subtle flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1.5"
+            >
+              <Icon
+                name="simple-icons:dungeonsanddragons"
+                size={12}
+                class="text-dice"
+                aria-hidden="true"
+              />
+              <span class="text-dice font-mono text-xs">Recent Rolls</span>
+            </div>
+            <div class="flex items-center gap-2" data-recent-rolls>
+              <span class="text-secondary text-xs">—</span>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <div
+              class="border-stroke-subtle bg-surface-subtle flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1.5"
+            >
+              <Icon name="lucide:gamepad-2" size={12} class="text-gaming" aria-hidden="true" />
+              <span class="text-gaming font-mono text-xs">Playing</span>
+            </div>
+            <span class="text-secondary text-xs" data-now-playing>—</span>
+          </div>
+        </div>
       </div>
 
-      <div class="mt-8 flex items-center justify-between border-t border-stroke-subtle pt-6">
-        <div class="flex items-center gap-1.5 font-mono text-xs text-muted">
+      <!-- Hidden dice icon library — cloned by recentRolls.ts at runtime -->
+      <div hidden aria-hidden="true">
+        {
+          ([4, 6, 8, 10, 12, 20] as const).map((n) => (
+            <span data-die-icon={n}>
+              <Icon name={`mdi:dice-d${n}`} size={30} class="text-dice/70" />
+            </span>
+          ))
+        }
+      </div>
+
+      <div class="border-stroke-subtle mt-8 flex items-center justify-between border-t pt-6">
+        <div class="text-muted flex items-center gap-1.5 font-mono text-xs">
           <Icon name="lucide:map-pin" size={12} aria-hidden="true" />
           Pittsburgh, PA
         </div>
@@ -44,33 +90,27 @@ import { SocialLink } from '@shared/ui';
       </div>
     </div>
 
-    <!-- Projects nav card -->
-    <a
-      data-hero-card
-      data-tilt
+    <HeroNavCard
+      href="#skills"
+      label="Stack"
+      labelColor="text-highlight"
+      title="Skills"
+      subtitle="Tools & technologies"
+    />
+    <HeroNavCard
       href="#projects"
-      class="flex flex-col justify-between rounded-2xl border border-stroke bg-surface p-6 backdrop-blur-md transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg hover:shadow-black/30"
-    >
-      <span class="font-mono text-xs tracking-widest text-highlight uppercase">Work</span>
-      <div>
-        <h2 class="text-xl font-semibold text-primary">Projects</h2>
-        <p class="mt-1 text-sm text-secondary">My Most Recent Work</p>
-      </div>
-    </a>
-
-    <!-- Resume nav card -->
-    <a
-      data-hero-card
-      data-tilt
+      label="Work"
+      labelColor="text-warm"
+      title="Projects"
+      subtitle="My most recent work"
+    />
+    <HeroNavCard
       href="#resume"
-      class="flex flex-col justify-between rounded-2xl border border-stroke bg-surface p-6 backdrop-blur-md transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg hover:shadow-black/30"
-    >
-      <span class="font-mono text-xs tracking-widest text-accent uppercase">Experience</span>
-      <div>
-        <h2 class="text-xl font-semibold text-primary">Resume</h2>
-        <p class="mt-1 text-sm text-secondary">Work history & skills</p>
-      </div>
-    </a>
+      label="Career"
+      labelColor="text-accent"
+      title="Experience"
+      subtitle="Work history & skills"
+    />
   </div>
 </section>
 
@@ -79,4 +119,10 @@ import { SocialLink } from '@shared/ui';
 </script>
 <script>
   import '../scripts/typewriter.ts';
+</script>
+<script>
+  import '../scripts/nowPlaying.ts';
+</script>
+<script>
+  import '../scripts/recentRolls.ts';
 </script>
