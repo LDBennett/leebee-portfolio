@@ -12,23 +12,26 @@ const { project, hasNotes } = Astro.props;
 const primaryUrl = hasNotes
   ? `/projects/${project.id}`
   : (project.data.liveUrl ?? project.data.repoUrl ?? null);
-
-const Tag = primaryUrl ? 'a' : 'div';
-const tagProps = primaryUrl
-  ? {
-      href: primaryUrl,
-      ...(primaryUrl.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {}),
-    }
-  : {};
 ---
 
-<Tag
-  {...tagProps}
+<div
   data-scroll-reveal
   data-tilt
-  class="bg-surface border-stroke group flex flex-col justify-between rounded-2xl border p-6 backdrop-blur-md transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg hover:shadow-black/30"
+  class="bg-surface border-stroke group relative flex flex-col justify-between rounded-2xl border p-6 backdrop-blur-md transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg hover:shadow-black/30"
 >
-  <div>
+  <!-- Card-level overlay link — sits at z-0 so inner links stay clickable -->
+  {
+    primaryUrl && (
+      <a
+        href={primaryUrl}
+        class="absolute inset-0 z-0 rounded-2xl"
+        aria-label={project.data.title}
+        {...(primaryUrl.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+      />
+    )
+  }
+
+  <div class="relative z-10">
     <div class="flex items-center justify-between">
       <span class="text-highlight font-mono text-xs tracking-widest uppercase">
         {project.data.type ?? 'Project'}
@@ -37,78 +40,127 @@ const tagProps = primaryUrl
         {project.data.startDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
       </span>
     </div>
-    <h3 class="text-primary mt-2 text-xl font-semibold">{project.data.title}</h3>
-    <p class="text-body mt-2 text-sm leading-relaxed">{project.data.description}</p>
-    {project.data.note && <p class="text-muted/70 mt-2 text-xs italic">{project.data.note}</p>}
-  </div>
 
-  <div class="mt-6 flex items-center gap-3">
-    {
-      project.data.repoUrl && (
-        <Icon
-          name="simple-icons:github"
-          size={14}
-          class="text-muted/60 group-hover:text-muted shrink-0 transition-colors duration-200"
-          aria-hidden="true"
-        />
-      )
-    }
-    {
-      project.data.liveUrl && (
-        <span class="text-muted group-hover:text-secondary font-mono text-xs transition-colors duration-200">
-          {new URL(project.data.liveUrl).hostname}
-        </span>
-      )
-    }
+    <!-- Title row with eye preview -->
+    <div class="mt-2 flex items-start gap-3">
+      <h3 class="text-primary min-w-0 flex-1 text-xl font-semibold">{project.data.title}</h3>
 
-    <div class="ml-auto flex items-center gap-3">
-      <!-- Preview icon + floating panel -->
-      <div class="group/preview relative">
+      <div class="relative shrink-0" data-preview-wrapper>
         <button
           type="button"
           aria-label="Preview screenshot"
-          class="text-muted/50 hover:text-muted focus:text-muted flex items-center transition-colors duration-200 focus:outline-none"
+          class="text-muted/40 hover:text-highlight focus:text-highlight flex items-center rounded transition-colors duration-200 focus:outline-none"
           data-preview-btn
         >
-          <Icon name="lucide:eye" size={14} aria-hidden="true" />
+          <Icon name="lucide:eye" size={18} aria-hidden="true" />
         </button>
 
         <div
-          class="pointer-events-none absolute right-0 bottom-full z-50 mb-3 w-64 translate-y-1 opacity-0 transition-all duration-200 group-focus-within/preview:pointer-events-auto group-focus-within/preview:translate-y-0 group-focus-within/preview:opacity-100 group-hover/preview:pointer-events-auto group-hover/preview:translate-y-0 group-hover/preview:opacity-100"
+          data-preview-panel
+          class="pointer-events-none absolute right-0 top-full z-50 mt-2 w-64 translate-y-1 opacity-0 transition-all duration-200"
         >
           <div class="border-stroke overflow-hidden rounded-xl border shadow-2xl shadow-black/60">
-            <div class="bg-canvas/90 flex aspect-video items-center justify-center">
-              <div class="text-center">
-                <Icon
-                  name="lucide:image"
-                  size={24}
-                  class="text-accent/20 mx-auto mb-2"
-                  aria-hidden="true"
-                />
-                <span class="text-muted/40 font-mono text-xs">screenshot coming soon</span>
+            {project.data.previewImage ? (
+              <img
+                src={project.data.previewImage}
+                alt={`${project.data.title} preview`}
+                class="aspect-video w-full object-cover object-top"
+                loading="lazy"
+              />
+            ) : (
+              <div class="bg-canvas/90 flex aspect-video items-center justify-center">
+                <div class="text-center">
+                  <Icon name="lucide:image" size={24} class="text-accent/20 mx-auto mb-2" aria-hidden="true" />
+                  <span class="text-muted/40 font-mono text-xs">screenshot coming soon</span>
+                </div>
               </div>
-            </div>
+            )}
           </div>
           <div class="text-muted/40 mt-1.5 text-right font-mono text-xs">{project.data.title}</div>
         </div>
       </div>
-
-      {
-        hasNotes && (
-          <span class="text-muted/60 group-hover:text-highlight font-mono text-xs transition-colors duration-200">
-            deep dive →
-          </span>
-        )
-      }
     </div>
+
+    <p class="text-body mt-2 text-sm leading-relaxed">{project.data.description}</p>
+    {project.data.note && <p class="text-muted/70 mt-2 text-xs italic">{project.data.note}</p>}
   </div>
-</Tag>
+
+  <!-- Bottom row — always direct external links -->
+  <div class="border-stroke-subtle relative z-10 mt-6 flex items-center gap-3 border-t pt-4">
+    {
+      project.data.repoUrl && (
+        <a
+          href={project.data.repoUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="GitHub repository"
+          class="card-link-underline text-muted/50 hover:text-highlight shrink-0 transition-colors duration-200"
+          data-bottom-link
+        >
+          <Icon name="simple-icons:github" size={15} aria-hidden="true" />
+        </a>
+      )
+    }
+    {
+      project.data.liveUrl && (
+        <a
+          href={project.data.liveUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="card-link-underline card-link-underline-d1 text-muted/50 hover:text-highlight font-mono text-xs transition-colors duration-200"
+          data-bottom-link
+        >
+          {new URL(project.data.liveUrl).hostname}
+        </a>
+      )
+    }
+
+    {
+      hasNotes && primaryUrl && (
+        <a
+          href={primaryUrl}
+          class="card-link-underline card-link-underline-d2 text-muted/50 hover:text-highlight ml-auto font-mono text-xs transition-colors duration-200"
+          data-bottom-link
+        >
+          deep dive →
+        </a>
+      )
+    }
+  </div>
+</div>
 
 <script>
-  document.querySelectorAll('[data-preview-btn]').forEach((btn) => {
+  document.querySelectorAll('[data-preview-wrapper]').forEach((wrapper) => {
+    const btn = wrapper.querySelector('[data-preview-btn]') as HTMLElement | null;
+    const panel = wrapper.querySelector('[data-preview-panel]') as HTMLElement | null;
+    const card = wrapper.closest('[data-scroll-reveal]') as HTMLElement | null;
+    if (!btn || !panel || !card) return;
+
+    const show = () => {
+      panel.classList.remove('opacity-0', 'translate-y-1', 'pointer-events-none');
+      panel.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+      card.style.zIndex = '50';
+    };
+    const hide = () => {
+      panel.classList.add('opacity-0', 'translate-y-1', 'pointer-events-none');
+      panel.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+      card.style.zIndex = '';
+    };
+
+    wrapper.addEventListener('mouseenter', show);
+    wrapper.addEventListener('mouseleave', hide);
+    wrapper.addEventListener('focusin', show);
+    wrapper.addEventListener('focusout', (e) => {
+      if (!wrapper.contains((e as FocusEvent).relatedTarget as Node)) hide();
+    });
+
     btn.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
     });
+  });
+
+  document.querySelectorAll('[data-bottom-link]').forEach((el) => {
+    el.addEventListener('click', (e) => e.stopPropagation());
   });
 </script>

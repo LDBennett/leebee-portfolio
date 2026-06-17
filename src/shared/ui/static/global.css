@@ -102,6 +102,31 @@
   color: var(--color-highlight);
 }
 
+/* Animated underline — draws left to right on card group hover */
+.card-link-underline {
+  position: relative;
+}
+
+.card-link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease-out;
+}
+
+.group:hover .card-link-underline::after {
+  transform: scaleX(1);
+}
+
+.card-link-underline-d1::after { transition-delay: 80ms; }
+.card-link-underline-d2::after { transition-delay: 160ms; }
+
 .typewriter-cursor {
   animation: cursor-blink 1s step-end infinite;
 }

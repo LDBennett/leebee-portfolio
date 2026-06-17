@@ -15,6 +15,7 @@ const projects = defineCollection({
     liveUrl: z.string().url().optional(),
     repoUrl: z.string().url().optional(),
     highlights: z.array(z.string()).optional(),
+    previewImage: z.string().optional(),
   }),
 });
 
@@ -25,7 +26,10 @@ const projectNotes = defineCollection({
 
 const resumeNotes = defineCollection({
   loader: glob({ pattern: '**/*.mdx', base: './src/content/resumeNotes' }),
-  schema: z.object({}),
+  schema: z.object({
+    keyWins: z.array(z.string()).optional(),
+    introduced: z.array(z.string()).optional(),
+  }),
 });
 
 const resume = defineCollection({

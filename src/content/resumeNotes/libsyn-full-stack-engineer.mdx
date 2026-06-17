@@ -1,30 +1,57 @@
 ---
+keyWins:
+  - Led UI modernization
+  - Onboarding milestone system
+  - Spotify Video & SAI integrations
+  - AI-assisted dev workflows
+introduced:
+  - React Router 7
+  - TanStack Query
+  - TanStack Form
+  - TanStack Table
+  - Domain Driven Design
 ---
 
-## Summary
+Jan 2024 marked a shift in scope. I moved from contributing to the platform rebuild into leading it by making architecture decisions, setting frontend conventions, and owning integrations that touched external partners directly. The codebase was mid-migration and the team needed someone to drive the UI layer forward with conviction.
 
-Video Game Backlog Bunker is a personal project born out of a real problem: too many games, not enough memory for which ones were worth finishing. The goal was a clean, fast app for tracking a gaming backlog with minimal friction.
+## Shipped Work
 
-## Approach
+### Frontend Modernization — React Router 7 + TanStack
 
-_Fill this in — e.g. why you chose the stack, how state is managed, any interesting patterns._
+The platform UI had accumulated years of inconsistency across a mix of legacy PHP views and partially-migrated React pages. I led the decision to standardize on React Router 7 with TanStack Query, Form, and Table as the full frontend stack.
 
-## Pages
+I really enjoyed working in this stack and wish we would have kept it going, but unfortunately, this was dropped to continue in Libsyn 5.
 
-### Dashboard
+### Onboarding Milestone System
 
-_Describe what the main view shows and what a user can do here._
+New shows on Libsyn needed to complete a sequence of setup steps before they could distribute to Apple Podcasts, Spotify, or enroll in advertising. The existing flow had no concept of progress — users would abandon mid-setup with no indication of what was left or why it mattered.
 
-### Game Detail
+Going back to Lisyn 5, I designed and built the milestone system: a flexible event-tracking layer that recorded completion of discrete setup actions (feed configuration, episode upload, settings, destination submission) and surfaced them as a guided checklist. The system drove measurable improvements in show setup completion and directly enabled faster advertising enrollment for new creators.
 
-_Describe the detail view — what data is shown, how it's edited._
+### Spotify Video Integration
 
-## Screenshots
+Libsyn added support for video podcasts distributed to Spotify. I built the front-end integration for enabling video distribution on a show. It included the various settings pages and a big redesign of the entire destiantions page.
 
-### Desktop
+### Spotify Audience Network (SAI)
 
-### Mobile
+Programmatic ad insertion via Spotify's Audience Network was a critical integration for monetization. I built the creator enrollment flow and front-end configuration to Spotify's SAI requirements (show-level eligibility checks, opt-in confirmation, advertisement category approval, etc.).
 
-## What I'd do differently
+### AI-Assisted Development Workflows
 
-_Fill this in when you have thoughts._
+Integrated Claude and GitHub Copilot into day-to-day development. This was primarily for accelerating tasks like writing scripts, scaffolding new routes, and ensuring I was following Domain Driven Development Principles.
+
+### New Podcast Page
+
+With Domain Driven Development in mind, I created a new podcast page for the platform. Instead of utilizing PHP and Zend for data and rendering, this would instead be self-contained and use an API to fetch show and episode information. This new type of page has not released as of yet.
+
+## Skills in Context
+
+**React Router 7** — used for both client-side navigation and as the data layer (loaders/actions), not just routing. Replaced a patchwork of `useEffect`-driven fetching.
+
+**TanStack Query** — managed all server state: background refetches, cache invalidation on mutations, and the async status polling for Spotify submission states.
+
+**TanStack Form** — handled complex multi-step forms with field-level validation and submission state, replacing ad-hoc controlled component patterns.
+
+**TanStack Table** — powered the episode management and analytics tables with virtualization and server-side pagination.
+
+**Domain Driven Design** — applied bounded context thinking to the platform's feature areas, keeping podcast feed logic, monetization, and distribution as separate concerns rather than a single sprawling data model.
