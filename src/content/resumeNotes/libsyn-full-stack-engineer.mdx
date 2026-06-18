@@ -10,6 +10,7 @@ introduced:
   - TanStack Form
   - TanStack Table
   - Domain Driven Design
+  - shadcn
 ---
 
 Jan 2024 marked a shift in scope. I moved from contributing to the platform rebuild into leading it by making architecture decisions, setting frontend conventions, and owning integrations that touched external partners directly. The codebase was mid-migration and the team needed someone to drive the UI layer forward with conviction.
@@ -18,7 +19,7 @@ Jan 2024 marked a shift in scope. I moved from contributing to the platform rebu
 
 ### Frontend Modernization — React Router 7 + TanStack
 
-The platform UI had accumulated years of inconsistency across a mix of legacy PHP views and partially-migrated React pages. I led the decision to standardize on React Router 7 with TanStack Query, Form, and Table as the full frontend stack.
+The platform UI had accumulated years of inconsistency across a mix of legacy PHP views and partially-migrated React pages. I led the decision to standardize on React Router 7 with TanStack Query, Form, and Table. In addition, I used shadcn to quickly spawn up components.
 
 I really enjoyed working in this stack and wish we would have kept it going, but unfortunately, this was dropped to continue in Libsyn 5.
 
@@ -26,11 +27,13 @@ I really enjoyed working in this stack and wish we would have kept it going, but
 
 New shows on Libsyn needed to complete a sequence of setup steps before they could distribute to Apple Podcasts, Spotify, or enroll in advertising. The existing flow had no concept of progress — users would abandon mid-setup with no indication of what was left or why it mattered.
 
-Going back to Lisyn 5, I designed and built the milestone system: a flexible event-tracking layer that recorded completion of discrete setup actions (feed configuration, episode upload, settings, destination submission) and surfaced them as a guided checklist. The system drove measurable improvements in show setup completion and directly enabled faster advertising enrollment for new creators.
+In going back to Libsyn 5, I designed and built a milestone system: a flexible event-tracking layer that recorded completion of discrete setup actions (feed configuration, episode upload, settings, destination submission) and surfaced them as a guided checklist. The system drove measurable improvements in show setup completion and directly enabled faster advertising enrollment for new creators.
 
 ### Spotify Video Integration
 
-Libsyn added support for video podcasts distributed to Spotify. I built the front-end integration for enabling video distribution on a show. It included the various settings pages and a big redesign of the entire destiantions page.
+Libsyn added support for video podcasts distributed to Spotify. I built the front-end integration for enabling video distribution on a show. It included the various settings pages and a big redesign of the entire destiantions page to properly accommodate these changes.
+
+While doing this refactor, I actually I implemented a bit of DDD (Domain Driven Design) and SRP (Single Responsibility Principle) in the code. It greatly help the codebase have reusable API calls for different domains and entities on the system.
 
 ### Spotify Audience Network (SAI)
 
@@ -38,11 +41,11 @@ Programmatic ad insertion via Spotify's Audience Network was a critical integrat
 
 ### AI-Assisted Development Workflows
 
-Integrated Claude and GitHub Copilot into day-to-day development. This was primarily for accelerating tasks like writing scripts, scaffolding new routes, and ensuring I was following Domain Driven Development Principles.
+Integrated Claude and GitHub Copilot into day-to-day development. This was primarily for accelerating tasks like writing scripts, scaffolding new routes, and ensuring I was following Domain Driven Design Principles.
 
 ### New Podcast Page
 
-With Domain Driven Development in mind, I created a new podcast page for the platform. Instead of utilizing PHP and Zend for data and rendering, this would instead be self-contained and use an API to fetch show and episode information. This new type of page has not released as of yet.
+With Domain Driven Design in mind, I created a new podcast page for the platform. Instead of utilizing PHP and Zend for data and rendering, this would instead be self-contained and use an API to fetch show and episode information. This new type of page has not released as of yet.
 
 ## Skills in Context
 
@@ -53,5 +56,7 @@ With Domain Driven Development in mind, I created a new podcast page for the pla
 **TanStack Form** — handled complex multi-step forms with field-level validation and submission state, replacing ad-hoc controlled component patterns.
 
 **TanStack Table** — powered the episode management and analytics tables with virtualization and server-side pagination.
+
+**shadcn** - In order to make components quickly, I decided on using shadcn for the new Libsyn component system.
 
 **Domain Driven Design** — applied bounded context thinking to the platform's feature areas, keeping podcast feed logic, monetization, and distribution as separate concerns rather than a single sprawling data model.
