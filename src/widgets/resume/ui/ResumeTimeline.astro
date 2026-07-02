@@ -1,4 +1,5 @@
 ---
+import { Kicker } from '@shared/ui';
 import { ResumeEntry, getResumeEntries, formatDate } from '@entities/resume';
 import { getResumeNoteSlugs } from '@entities/resumeNote';
 
@@ -7,7 +8,7 @@ const noteSlugs = await getResumeNoteSlugs();
 ---
 
 <section id="resume" class="mx-auto max-w-4xl px-8 py-16">
-  <p class="text-accent mb-2 font-mono text-xs tracking-widest uppercase">Career</p>
+  <Kicker color="text-accent" as="p" class="mb-2">Career</Kicker>
   <h2 class="text-primary mb-10 text-3xl font-bold">Experience</h2>
 
   <div>

@@ -1,0 +1,291 @@
+---
+interface Shot {
+  src: string;
+  label: string;
+  note?: string;
+}
+
+interface Props {
+  shots: Shot[];
+  mode?: 'desktop' | 'mobile';
+}
+
+const { shots, mode = 'desktop' } = Astro.props;
+---
+
+{
+  mode === 'mobile' ? (
+    <div class="screenshot-gallery my-8">
+      <div class="relative">
+        <div
+          class="scrollbar-hide flex cursor-grab gap-4 overflow-x-auto active:cursor-grabbing"
+          data-mobile-strip
+        >
+          {shots.map((shot) => (
+            <div class="w-55 shrink-0">
+              <div class="overflow-hidden rounded-2xl shadow-2xl">
+                <img
+                  src={shot.src}
+                  alt={shot.label}
+                  loading="lazy"
+                  draggable="false"
+                  class="block h-auto w-full"
+                />
+              </div>
+              <p class="text-muted mt-2 text-center font-mono text-xs">{shot.label}</p>
+              {shot.note && (
+                <p class="text-muted/60 mt-0.5 text-center font-mono text-[10px]">{shot.note}</p>
+              )}
+            </div>
+          ))}
+        </div>
+        <div
+          class="from-canvas pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l to-transparent transition-opacity duration-300"
+          data-mobile-fade
+        />
+      </div>
+      {shots.length > 1 && (
+        <div
+          class="bg-stroke-subtle relative mt-3 h-1 w-full cursor-pointer rounded-full"
+          data-mobile-scrubber
+        >
+          <div class="bg-highlight absolute h-full rounded-full" data-mobile-thumb />
+        </div>
+      )}
+    </div>
+  ) : (
+    <div class="screenshot-gallery my-8" data-gallery>
+      <div class="mb-3">
+        <div
+          class="scrollbar-hide flex cursor-grab gap-2 overflow-x-auto pb-1 active:cursor-grabbing"
+          data-tab-strip
+        >
+          {shots.map((shot, i) => (
+            <button
+              data-tab={i}
+              class:list={[
+                'shrink-0 cursor-pointer rounded-full border px-3 py-1 font-mono text-xs transition-all duration-200',
+                i === 0
+                  ? 'border-warm/30 bg-warm/20 text-warm'
+                  : 'border-stroke-subtle bg-surface-subtle text-muted hover:text-secondary',
+              ]}
+            >
+              {shot.label}
+            </button>
+          ))}
+        </div>
+        <div
+          class="relative mt-2 h-0.5 w-full cursor-pointer rounded-full bg-stroke-subtle opacity-0 transition-opacity duration-200"
+          data-tab-scrubber
+        >
+          <div class="bg-warm absolute h-full rounded-full" data-tab-thumb />
+        </div>
+      </div>
+
+      <div class="sg-image-area overflow-hidden rounded-2xl shadow-2xl">
+        {shots.map((shot, i) => (
+          <div data-panel={i} class:list={[i !== 0 && 'hidden', 'w-full']}>
+            <img
+              src={shot.src}
+              alt={shot.label}
+              loading="lazy"
+              draggable="false"
+              class="mx-auto block"
+            />
+            {shot.note && (
+              <p class="border-stroke-subtle text-muted/70 border-t px-4 py-2.5 font-mono text-xs">
+                {shot.note}
+              </p>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-mobile-strip]').forEach((strip) => {
+    const fade = strip.nextElementSibling as HTMLElement | null;
+    const scrubber =
+      strip.closest('.screenshot-gallery')?.querySelector<HTMLElement>('[data-mobile-scrubber]') ??
+      null;
+    const thumb = scrubber?.querySelector<HTMLElement>('[data-mobile-thumb]') ?? null;
+
+    const update = () => {
+      const { scrollLeft, scrollWidth, clientWidth } = strip;
+      const hasOverflow = scrollWidth > clientWidth;
+      const atEnd = scrollLeft + clientWidth >= scrollWidth - 8;
+
+      fade?.classList.toggle('opacity-0', !hasOverflow || atEnd);
+
+      if (thumb && hasOverflow) {
+        thumb.style.width = `${(clientWidth / scrollWidth) * 100}%`;
+        thumb.style.left = `${(scrollLeft / scrollWidth) * 100}%`;
+      }
+    };
+
+    // Scrubber drag — pointer capture keeps tracking outside the element
+    if (scrubber) {
+      const seek = (clientX: number) => {
+        const rect = scrubber.getBoundingClientRect();
+        const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+        strip.scrollLeft = ratio * strip.scrollWidth;
+      };
+
+      let scrubbing = false;
+      scrubber.addEventListener('pointerdown', (e) => {
+        scrubbing = true;
+        scrubber.setPointerCapture(e.pointerId);
+        seek(e.clientX);
+      });
+      scrubber.addEventListener('pointermove', (e) => {
+        if (scrubbing) seek(e.clientX);
+      });
+      scrubber.addEventListener('pointerup', () => {
+        scrubbing = false;
+      });
+      scrubber.addEventListener('pointercancel', () => {
+        scrubbing = false;
+      });
+    }
+
+    // Strip drag-to-scroll on desktop
+    let dragging = false;
+    let dragStartX = 0;
+    let dragStartScrollLeft = 0;
+
+    strip.addEventListener('pointerdown', (e) => {
+      dragging = true;
+      dragStartX = e.clientX;
+      dragStartScrollLeft = strip.scrollLeft;
+      strip.setPointerCapture(e.pointerId);
+    });
+    strip.addEventListener('pointermove', (e) => {
+      if (!dragging) return;
+      strip.scrollLeft = dragStartScrollLeft - (e.clientX - dragStartX);
+    });
+    const endDrag = () => {
+      dragging = false;
+    };
+    strip.addEventListener('pointerup', endDrag);
+    strip.addEventListener('pointercancel', endDrag);
+
+    strip.addEventListener('scroll', update, { passive: true });
+    requestAnimationFrame(update);
+  });
+
+  document.querySelectorAll<HTMLElement>('[data-gallery]').forEach((gallery) => {
+    const tabs = Array.from(gallery.querySelectorAll<HTMLButtonElement>('[data-tab]'));
+    const panels = Array.from(gallery.querySelectorAll<HTMLElement>('[data-panel]'));
+    let current = 0;
+
+    const ACTIVE = ['border-warm/30', 'bg-warm/20', 'text-warm'];
+    const INACTIVE = [
+      'border-stroke-subtle',
+      'bg-surface-subtle',
+      'text-muted',
+      'hover:text-secondary',
+    ];
+
+    function goTo(index: number) {
+      tabs[current].classList.remove(...ACTIVE);
+      tabs[current].classList.add(...INACTIVE);
+      panels[current].classList.add('hidden');
+
+      current = index;
+
+      tabs[current].classList.remove(...INACTIVE);
+      tabs[current].classList.add(...ACTIVE);
+      panels[current].classList.remove('hidden');
+    }
+
+    // Tab strip scrubber
+    const tabStrip = gallery.querySelector<HTMLElement>('[data-tab-strip]');
+    const tabScrubber = gallery.querySelector<HTMLElement>('[data-tab-scrubber]');
+    const tabThumb = tabScrubber?.querySelector<HTMLElement>('[data-tab-thumb]') ?? null;
+
+    const updateTabScrubber = () => {
+      if (!tabStrip || !tabScrubber || !tabThumb) return;
+      const { scrollLeft, scrollWidth, clientWidth } = tabStrip;
+      const hasOverflow = scrollWidth > clientWidth;
+      tabScrubber.classList.toggle('opacity-0', !hasOverflow);
+      if (hasOverflow) {
+        tabThumb.style.width = `${(clientWidth / scrollWidth) * 100}%`;
+        tabThumb.style.left = `${(scrollLeft / scrollWidth) * 100}%`;
+      }
+    };
+
+    if (tabStrip) {
+      let tabDragging = false;
+      let tabDragMoved = false;
+      let tabDragStartX = 0;
+      let tabDragStartScrollLeft = 0;
+
+      tabStrip.addEventListener('pointerdown', (e) => {
+        tabDragging = true;
+        tabDragMoved = false;
+        tabDragStartX = e.clientX;
+        tabDragStartScrollLeft = tabStrip.scrollLeft;
+      });
+      tabStrip.addEventListener('pointermove', (e) => {
+        if (!tabDragging) return;
+        const dx = e.clientX - tabDragStartX;
+        if (!tabDragMoved && Math.abs(dx) > 5) {
+          tabDragMoved = true;
+          tabStrip.setPointerCapture(e.pointerId);
+        }
+        if (tabDragMoved) tabStrip.scrollLeft = tabDragStartScrollLeft - dx;
+      });
+      tabStrip.addEventListener('pointerup', () => { tabDragging = false; });
+      tabStrip.addEventListener('pointercancel', () => { tabDragging = false; tabDragMoved = false; });
+      // Capture phase: swallow clicks that follow a drag so tabs don't switch
+      tabStrip.addEventListener('click', (e) => {
+        if (tabDragMoved) { e.stopPropagation(); tabDragMoved = false; }
+      }, true);
+    }
+
+    if (tabScrubber && tabStrip) {
+      const seekTab = (clientX: number) => {
+        const rect = tabScrubber.getBoundingClientRect();
+        const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+        tabStrip.scrollLeft = ratio * tabStrip.scrollWidth;
+      };
+      let tabScrubbing = false;
+      tabScrubber.addEventListener('pointerdown', (e) => {
+        tabScrubbing = true;
+        tabScrubber.setPointerCapture(e.pointerId);
+        seekTab(e.clientX);
+      });
+      tabScrubber.addEventListener('pointermove', (e) => { if (tabScrubbing) seekTab(e.clientX); });
+      tabScrubber.addEventListener('pointerup', () => { tabScrubbing = false; });
+      tabScrubber.addEventListener('pointercancel', () => { tabScrubbing = false; });
+    }
+
+    tabStrip?.addEventListener('scroll', updateTabScrubber, { passive: true });
+    requestAnimationFrame(updateTabScrubber);
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => goTo(Number(tab.dataset.tab)));
+    });
+
+    const imageArea = gallery.querySelector<HTMLElement>('.sg-image-area');
+    let startX = 0;
+
+    imageArea?.addEventListener('pointerdown', (e) => {
+      startX = e.clientX;
+    });
+    imageArea?.addEventListener('pointerup', (e) => {
+      const dx = e.clientX - startX;
+      if (Math.abs(dx) < 40) return;
+      if (dx < 0 && current < tabs.length - 1) goTo(current + 1);
+      if (dx > 0 && current > 0) goTo(current - 1);
+    });
+
+    gallery.setAttribute('tabindex', '-1');
+    gallery.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' && current < tabs.length - 1) goTo(current + 1);
+      if (e.key === 'ArrowLeft' && current > 0) goTo(current - 1);
+    });
+  });
+</script>

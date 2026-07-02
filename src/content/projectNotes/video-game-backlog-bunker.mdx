@@ -1,26 +1,54 @@
 ---
 ---
 
+import { ScreenshotGallery } from '@shared/ui';
+import { buildShots } from '@entities/projectNote';
+export const backlogBunkerDesktop = buildShots('video-game-backlog-bunker', false, [
+  { file: 'desktop', label: 'Dashboard' },
+  { file: 'desktop_playing', label: 'Currently Playing' },
+  { file: 'desktop_add', label: 'Adding a Game' },
+  { file: 'desktop_edit', label: 'Editing a Game' },
+  { file: 'desktop_FAB', label: 'FAB Options (Add, Random Backlog, Close, Random Playing)' },
+  { file: 'desktop_random', label: 'Random Game Picker' },
+]);
+
+export const backlogBunkerMobile = buildShots('video-game-backlog-bunker', false, [
+  { file: 'mobile', label: 'Dashboard' },
+  { file: 'mobile_playing', label: 'Currently Playing' },
+  { file: 'mobile_add', label: 'Adding a Game' },
+  { file: 'mobile_edit', label: 'Editing a Game' },
+  { file: 'mobile_FAB', label: 'FAB Options (Add, Random Backlog, Close, Random Playing)' },
+  { file: 'mobile_random', label: 'Random Game Picker' },
+]);
+
 ## Summary
 
-Video Game Backlog Bunker is a personal project born out of a real problem: too many games, not enough memory for which ones were worth finishing. The goal was a clean, fast app for tracking a gaming backlog with minimal friction.
+Video Game Backlog Bunker is a personal project born out of a real problem: too many games and being indecisive about which game I should play. On top of keeping track of current games, it also keeps track of games I am interested in or looking forward to. To combat the indecision, I made a randomizer that would just pick a game for me.
 
-## Approach
+## Introduction
 
-TODO...
+My Xbox, Playstation, Steam and Switch libraries have hundreds of games. My backlog was just a notes app list that I never looked at and was hard to keep track of. I wanted something purpose-built: a tracker that knew what my games actually were, could surface the right one when I needed it, and kept a proper history of what I'd played, what I'd abandoned, and what I'd 100%ed.
 
-## Pages
+## Architecture
 
-### Dashboard
+The app is built on **Next.js** with the App Router, using **Supabase** for auth and PostgreSQL. Client state is managed with **Zustand**, keeping server data and UI state cleanly separated.
 
-TODO...
+The most interesting technical piece is the game enrichment pipeline. When a game is added, it cross-references an external APIs: **IGDB** for all of the game meta. I can also run a script to fetch data from **RAWG** as well. Both external IDs can be stored per game so future syncs can stay in lock-step without re-querying.
 
-### Game Detail
+Auth uses Supabase Row Level Security with two patterns throughout the codebase — `requireAuth()` for protected routes and `optionalAuth()` for public anonymous browsing. The status model goes beyond a simple "played/unplayed" flag: games can sit in wishlist, actively playing, completed, abandoned, replay, or backlog states.
 
-TODO...
+**Framer Motion** handles the carousel animation on the random game picker, which filters by status and mood tags before spinning.
+
+## Infrastructure
+
+Deployed to **Vercel** on the hobby tier — zero config, automatic preview deployments on every push. **Supabase** handles both authentication and the PostgreSQL database, with RLS policies enforcing per-user data isolation at the database level.
 
 ## Screenshots
 
 ### Desktop
 
+<ScreenshotGallery shots={backlogBunkerDesktop} mode="desktop" />
+
 ### Mobile
+
+<ScreenshotGallery shots={backlogBunkerMobile} mode="mobile" />

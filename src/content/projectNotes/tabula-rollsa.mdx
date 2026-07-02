@@ -1,0 +1,56 @@
+---
+---
+
+import { ScreenshotGallery } from '@shared/ui';
+import { buildShots } from '@entities/projectNote';
+export const tabulaRollsaDesktop = buildShots('tabula-rollsa', false, [
+  { file: 'desktop', label: 'Roll Page' },
+  { file: 'desktop_single-roll', label: 'Roll Page: Single' },
+  { file: 'desktop_multi-roll', label: 'Roll Page: Multi' },
+  { file: 'desktop_history', label: 'History Page' },
+  { file: 'desktop_stats', label: 'Stats Page' },
+  { file: 'desktop--theme1', label: 'Roll Page - Fighter Theme' },
+  { file: 'desktop--theme2', label: 'Roll Page - Wizard Theme' },
+]);
+
+export const tabulaRollsaMobile = buildShots('tabula-rollsa', false, [
+  { file: 'mobile', label: 'Roll Page' },
+  { file: 'mobile_single-roll', label: 'Roll Page: Single' },
+  { file: 'mobile_multi-roll', label: 'Roll Page: Multi' },
+  { file: 'mobile_history', label: 'History Page' },
+  { file: 'mobile_stats', label: 'Stats Page' },
+  { file: 'mobile--theme1', label: 'Roll Page - Fighter Theme' },
+  { file: 'mobile--theme2', label: 'Roll Page - Wizard Theme' },
+]);
+
+## Summary
+
+Tabula Rollsa is a mobile-first web app for logging, tracking, and analyzing dice rolls across tabletop RPG sessions.
+
+## Introduction
+
+Since 2025, I have been playing D&D fairly regularly. I got curious whether my dice were actually cursed or if it just felt that way. I wanted something I could pull out at the table, and quickly log a roll. Nothing existing quite fit the mobile-first, low-friction bar I wanted, so I built it. The recent rolls card on this portfolio's hero also pulls from Tabula Rollsa's public API.
+
+## Architecture
+
+Built with **SvelteKit** and **Svelte 5 runes**, which replaced the options API reactivity model with a signals-based approach. Runes make derived state and reactive declarations feel more explicit and co-located with the components that use them.
+
+The data layer uses **Drizzle ORM** against **Neon** serverless Postgres. The schema is organized around a roll → session hierarchy: each roll belongs to a session, and carries a die type, result, optional modifier, and a free-text note field. Queries for the statistics dashboard — total rolls, averages, natural 20s and 1s, per-die breakdowns — all run at the database layer rather than computing in the client.
+
+Two UX features worth calling out: the **handedness toggle** switches the entire layout for left- or right-handed play, making the primary roll action reachable with a thumb regardless of which hand is holding the phone. **Single vs Multi Roll** enables single dice at a time or to have multiple queued up for entry. I found these are best used in role playing vs battle mode.
+
+The project follows **Domain-Driven Design** and **Feature-Sliced Design** for the same reasons this portfolio does — keeping data logic out of components and keeping components small.
+
+## Infrastructure
+
+Deployed to **Vercel** with automatic builds on push. The database is **Neon** serverless Postgres — connection pooling is handled by Neon's built-in proxy, so there's no PgBouncer config to maintain. Scales to zero between sessions, which fits a hobby app with irregular traffic.
+
+## Screenshots
+
+### Desktop
+
+<ScreenshotGallery shots={tabulaRollsaDesktop} mode="desktop" />
+
+### Mobile
+
+<ScreenshotGallery shots={tabulaRollsaMobile} mode="mobile" />

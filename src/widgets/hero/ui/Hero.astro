@@ -1,6 +1,6 @@
 ---
 import { Icon } from 'astro-icon/components';
-import { SocialLink } from '@shared/ui';
+import { Card, Kicker, SocialLink } from '@shared/ui';
 import HeroNavCard from './Hero.NavCard.astro';
 ---
 
@@ -9,13 +9,9 @@ import HeroNavCard from './Hero.NavCard.astro';
     class="grid w-full max-w-4xl auto-rows-[minmax(140px,auto)] grid-cols-1 gap-4 md:grid-cols-3"
   >
     <!-- Name / bio card -->
-    <div
-      data-hero-card
-      data-tilt="4"
-      class="border-stroke bg-surface flex flex-col justify-between rounded-2xl border p-8 backdrop-blur-md transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg hover:shadow-black/30 md:col-span-3"
-    >
+    <Card data-hero-card data-tilt="4" class="flex flex-col justify-between p-8 md:col-span-3">
       <div>
-        <p class="text-accent mb-3 font-mono text-xs tracking-widest uppercase">hello, I'm</p>
+        <Kicker color="text-accent" as="p" class="mb-3">hello, I'm</Kicker>
         <h1
           data-typewriter
           data-text="Lee Bennett"
@@ -24,7 +20,7 @@ import HeroNavCard from './Hero.NavCard.astro';
         </h1>
         <p class="text-secondary mt-2 text-lg">Full-Stack Engineer</p>
         <p class="text-muted mt-4 max-w-lg text-sm leading-relaxed">
-          Over eight years of experience building content for the web
+          Full-stack engineer with a lifelong love of games
         </p>
 
         <div class="mt-4 flex flex-col flex-wrap gap-4">
@@ -88,15 +84,8 @@ import HeroNavCard from './Hero.NavCard.astro';
           </SocialLink>
         </div>
       </div>
-    </div>
+    </Card>
 
-    <HeroNavCard
-      href="#skills"
-      label="Stack"
-      labelColor="text-highlight"
-      title="Skills"
-      subtitle="Tools & technologies"
-    />
     <HeroNavCard
       href="#projects"
       label="Work"
@@ -110,6 +99,13 @@ import HeroNavCard from './Hero.NavCard.astro';
       labelColor="text-accent"
       title="Experience"
       subtitle="Work history & skills"
+    />
+    <HeroNavCard
+      href="#skills"
+      label="Stack"
+      labelColor="text-highlight"
+      title="Skills & Education"
+      subtitle="Tools, tech & background"
     />
   </div>
 </section>

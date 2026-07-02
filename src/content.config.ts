@@ -45,4 +45,19 @@ const resume = defineCollection({
   }),
 });
 
-export const collections = { projects, projectNotes, resume, resumeNotes };
+const education = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: './src/content/education' }),
+  schema: z.object({
+    institution: z.string(),
+    degree: z.string(),
+    field: z.string(),
+    startYear: z.number(),
+    endYear: z.number(),
+    honors: z.string().optional(),
+    minor: z.string().optional(),
+    focus: z.string().optional(),
+    courses: z.array(z.string()).optional(),
+  }),
+});
+
+export const collections = { projects, projectNotes, resume, resumeNotes, education };

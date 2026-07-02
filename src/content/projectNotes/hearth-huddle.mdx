@@ -1,0 +1,162 @@
+---
+---
+
+import { ScreenshotGallery } from '@shared/ui';
+import { buildShots } from '@entities/projectNote';
+
+export const hearthHuddleShotsDesktop = buildShots('hearth-huddle', false, [
+  { file: 'desktop_main--dark', label: 'Main Page Dark Mode' },
+  { file: 'desktop_main--light', label: 'Main Page Light Mode' },
+]);
+
+export const hearthHuddleShotsMobile = buildShots('hearth-huddle', false, [
+  { file: 'mobile_main--dark', label: 'Main Page Dark Mode' },
+  { file: 'mobile_main--light', label: 'Main Page Light Mode' },
+]);
+
+export const wordImposterShots = buildShots('hearth-huddle', 'word-imposter', [
+  { file: 'lobby', label: 'Lobby Screen' },
+  { file: 'lobby_accusation', label: 'Lobby Screen - Accusation Settings' },
+  { file: 'category-pick', label: 'Category Selection Screen' },
+  { file: 'role-reveal', label: 'Role Reveal Screen' },
+  { file: 'discussion', label: 'Discussion Screen' },
+  { file: 'accusation', label: 'Accusation Screen' },
+  { file: 'results', label: 'Results Screen' },
+]);
+
+export const libbedShots = buildShots('hearth-huddle', 'libbed', [
+  { file: 'lobby', label: 'Lobby Screen' },
+  { file: 'lobby_panic-prompt', label: 'Lobby Screen - Panic Prompt Settings' },
+  { file: 'archtype-select', label: 'Character Archtype Select' },
+  { file: 'prompt', label: 'Beginning of Prompt' },
+  { file: 'panic-prompt', label: 'Panic Prompt' },
+  { file: 'panic-prompt--timer', label: 'Panic Prompt - Nearing End of Time' },
+  { file: 'voting', label: 'Voting Screen' },
+  { file: 'results', label: 'Results Screen' },
+]);
+
+export const eyeShotShots = buildShots('hearth-huddle', 'eyeshot', [
+  { file: 'lobby', label: 'Lobby Screen' },
+  { file: 'lobby_roles', label: 'Lobby Screen - Extra Roles and Settings' },
+  { file: 'roles', label: 'Role Reveal Screen' },
+  { file: 'gameplay', label: 'Gameplay Screen' },
+  { file: 'accusation', label: 'Accustation Screen' },
+  { file: 'accusation_voting', label: 'Accustation Voting Screen' },
+  { file: 'accusation_results', label: 'Accustation Results Screen' },
+  { file: 'game-over', label: 'Game Over Screen' },
+  { file: 'game-over--revealed', label: 'Game Over with Roles Revealed Screen' },
+]);
+
+export const lineNoiseShots = buildShots('hearth-huddle', 'line-noise', [
+  { file: 'lobby', label: 'Lobby Screen' },
+  { file: 'lobby_extra-settings', label: 'Lobby Screen - Extra Settings' },
+  { file: 'sentence-start', label: 'Sentence Start' },
+  { file: 'role-reveal', label: 'Role Reveal Screen' },
+  { file: 'sentence-reveal', label: 'Sentence Reveal Screen' },
+  { file: 'sentence-entry', label: 'Sentence Entry Screen' },
+  { file: 'discussion', label: 'Discussion Screen' },
+  { file: 'accusation', label: 'Accustation Voting Screen' },
+  { file: 'game-over', label: 'Game Over Screen' },
+]);
+
+export const syntaxErrorShots = buildShots('hearth-huddle', 'syntax-error', [
+  { file: 'lobby', label: 'Lobby Screen' },
+  { file: 'lobby_settings', label: 'Lobby Screen - Settings' },
+  { file: 'floor-intro', label: 'Floor Introduction' },
+  { file: 'gameplay-dashboard', label: 'Main Gameplay Dashboard' },
+  { file: 'gameplay-dashboard--glitch', label: 'Glitch! Found' },
+  { file: 'floor-rewards', label: 'Floor Rewards Screen' },
+  { file: 'floor-selection', label: 'Next Floor Selection Screen' },
+  { file: 'boss-floor', label: 'Boss Floor Introduction' },
+  { file: 'gameplay-dashboard--boss', label: 'Boss Gameplay Dashboard' },
+  { file: 'boss-floor-rewards', label: 'Boss Actor Rewards Screen' },
+  { file: 'boss-floor-rewards--team', label: 'Boss Team Rewards Screen' },
+  { file: 'shop', label: 'Game Shop' },
+  { file: 'game-over', label: 'Game Over Screen' },
+]);
+
+## Summary
+
+Hearth Huddle is a mobile social party game web app designed for in-person play. The core concept: one phone that is passed between players for various different games (pass-and-play). It currently has five different games that all focus on social deduction or improv.
+
+While making this project, I kept in mind the possability of making this an in-person multi-phone experience with room codes using Cloudflare. This is still something I want to do, but it would most likely be a fairly big refactor of all the games.
+
+## Introduction
+
+I was inspired to create this app after being introduced to a pass-and-play game that is very similar to the EyeShot game. I wanted to create my own version of that, but I figured a lot of other games could also be made in the same format.
+
+A lot of party games either require physical components, app installations, or rely on multiple screens (or phones) for each player. I wanted something that worked with a single phone passed around a table. The five games were inspired by others, but refined to work in the pass-and-play format.
+
+## Architecture
+
+Built with **TanStack Start** (React 19 SSR) with **TanStack Router** for type-safe file-based routing and **TanStack Form** for the game input flows. The full TanStack suite kept the data and routing layers consistent and type-safe end-to-end without reaching for a separate form or data-fetching library.
+
+**Framer Motion** handles per-game animation sequences — each of the five games has its own transition style to reinforce the switch in gameplay context when the phone is passed.
+
+The project uses **Domain-Driven Design** and **Feature-Sliced Design**, with each game modelled as its own bounded context. This made it straightforward to add game rules, scoring logic, and animation state without any of the five games bleeding into each other.
+
+## Infrastructure
+
+Deployed to **Cloudflare Workers** via Wrangler. TanStack Start's SSR output targets the Workers runtime directly, so every request is rendered at the edge closest to the player — no origin server, no cold starts. This keeps the pass-and-play experience snappy even on mobile networks.
+
+## Games
+
+### Game 1 : Word Imposter
+
+I was inspired to make this game based on those short-form videos of people all given a word, but one person does not know what it is. After I figured out that flow, I stepped right into how this game would function. Players would pick a category and pass the phone around to assign roles. Each person would either be shown the word itself, or be assigned the imposter and not know what the word is. The trick would be for the imposter to blend in and _pretend_ they know the word.
+
+I think this game ended up being the most accessible to play. I have plans to expand the categories and make sub-categories in the future. One thing I thought was important was to have users make their OWN lists to use. That way, if none of the categories were to their liking, they could just make their own.
+
+<ScreenshotGallery shots={wordImposterShots} mode="mobile" />
+
+### Game 2: LibbeD
+
+Improv is what inspired this game. Specifically, the Breaking News: No Laugh Newsroom series on Dropout / YouTube. I liked the idea of giving prompts and then having the player improvise something at the end of it. Since improv leans comedy, the "Panic Prompt" portions typically lead into something silly, ridiculous and funny.
+
+Getting the starting prompts was definitely a challenge to do. I started out with just the newsroom one, but then expanded it to other characters I thought would be interesting or funny.
+
+I made sure that the screen looked like a teleprompter you'd see in a newsroom. I debated whether it be auto-scroll, click to scroll, or just regular scrolling and landed on the last one after some feedback.
+
+One of the cool additions I started with this game was the timer vibration and the visual red glow on the outside when the end of the time is nearing. Although the vibration is not supported by all browsers, I still believe this is nice feedback for players that their time is ending soon.
+
+<ScreenshotGallery shots={libbedShots} mode="mobile" />
+
+### Game 3: EyeShot
+
+This was the game that inspired me to create this app in the first place. Some family members had pulled this game up during a holiday and I was very interested in making my own version of this afterwards.
+
+Overall, the game sort of works like werewolf or mafia, but there is not as much of a deduction phase like in those games. Instead, players are assigned the roles and must look at each other in the room.
+
+One of the cool things I made for this app was the Fanatic and Medic roles. I feel like this adds a little bit of flavor to the game to keep things interesting. In addition, I had a niece who never wanted to be the killer, so I implemented the Exclude from Killer Role option in the game.
+
+Luckily, a lot of the components I created for Word Imposter were reused in this game. The new fanatic and medic roles led to some more logic in the game engines, but was relatively simple to implement overall.
+
+<ScreenshotGallery shots={eyeShotShots} mode="mobile" />
+
+### Game 4: Line Noise
+
+This game came to me with the simple idea of doing a telephone-like game. You can even play with the Saboteur Mode which essentially just makes it a pass-and-play text based telephone game. BUT, I wanted to make the telephone concept with a little twist to it. In the game title, the "Line" comes from a telephone line and the "noise" comes from static you may hear on a phone (or used to back int the day of landlines).
+
+Much like EyeShot, this one was relatively easy to implement since most of the components were already made in Word Imposter. The one big difference in this game is the Re-dial mode which makes it so the first person who writes the sentence COULD be the saboteur as well.
+
+<ScreenshotGallery shots={lineNoiseShots} mode="mobile" />
+
+### Game 5: Syntax Error
+
+I wanted to make a rogue-lite game for this app. I struggled a bit figuring out how it would work exactly, but eventually found a formula that would work. Basically, a team would have 2 players chosen to do improve bits WHILE being linguistically or physically contrained (can't use contractions, must high five after each sentence, etc). I want to make sure the other players watching would also have a job, so I made the GLITCH rule. The non-acting players would act as referees and get rewarded for successfully catching any rules being broken.
+
+I added stores, items, upgrades, etc to try and make the game a fun co-op improv rogue-lite. Overall, this one definitely needs more testing with various groups, but it has worked out well when I have tried it so far! I thought that the concept of the improv game was pretty fun on its own too and implemented the casual mode to take out the acting constraints as well.
+
+Overall, this one definitely took the longest to make and debug. There were some reused components, but most of the screens in this game had to be created. I tried my best to balance it, but I am almost certain it is not completely yet. Overall, still a WIP, but it is a functional game.
+
+<ScreenshotGallery shots={syntaxErrorShots} mode="mobile" />
+
+## Screenshots
+
+### Desktop
+
+<ScreenshotGallery shots={hearthHuddleShotsDesktop} mode="desktop" />
+
+### Mobile
+
+<ScreenshotGallery shots={hearthHuddleShotsMobile} mode="mobile" />

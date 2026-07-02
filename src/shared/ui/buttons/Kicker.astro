@@ -1,0 +1,13 @@
+---
+interface Props {
+  color: string;
+  as?: 'p' | 'span';
+  class?: string;
+}
+
+const { color, as: Tag = 'span', class: className } = Astro.props;
+---
+
+<Tag class:list={['font-mono text-xs tracking-widest uppercase', color, className]}>
+  <slot />
+</Tag>
