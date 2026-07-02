@@ -105,6 +105,42 @@
   color: var(--color-highlight);
 }
 
+.note-prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  margin-bottom: 1.5rem;
+}
+
+.note-prose th {
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  font-weight: 600;
+  color: var(--color-muted);
+  font-family: ui-monospace, monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--color-stroke);
+}
+
+.note-prose td {
+  padding: 0.5rem 0.75rem;
+  color: var(--color-secondary);
+  border-bottom: 1px solid var(--color-stroke-subtle);
+  vertical-align: top;
+}
+
+.note-prose td code,
+.note-prose th code {
+  font-family: ui-monospace, monospace;
+  font-size: 0.8125rem;
+  color: var(--color-accent);
+  background: var(--color-surface-subtle);
+  padding: 0.1em 0.4em;
+  border-radius: 0.25rem;
+}
+
 /* Animated underline — draws left to right on card group hover */
 .card-link-underline {
   position: relative;
@@ -129,6 +165,23 @@
 
 .card-link-underline-d1::after { transition-delay: 80ms; }
 .card-link-underline-d2::after { transition-delay: 160ms; }
+
+@utility scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Reset note-prose img styles inside the gallery so the container controls framing */
+.screenshot-gallery img {
+  width: auto;
+  border-radius: 0;
+  border: none;
+  margin: 0;
+  display: block;
+}
 
 .typewriter-cursor {
   animation: cursor-blink 1s step-end infinite;

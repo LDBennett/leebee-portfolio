@@ -1,5 +1,5 @@
 ---
-import { TechBadge } from '@shared/ui';
+import { Card, Kicker, TechBadge } from '@shared/ui';
 import { skillCategories } from '../api/skills';
 import { getBadgeTint } from '../utils/badgeTint';
 
@@ -10,28 +10,28 @@ const colSpanClass: Record<number, string> = {
 };
 ---
 
-<section id="skills" class="py-16 px-8">
-  <div class="max-w-4xl mx-auto">
+<section id="skills" class="px-8 py-16">
+  <div class="mx-auto max-w-4xl">
+    <Kicker color="text-highlight" as="p" class="mb-2">Foundation</Kicker>
+    <h2 class="text-primary mb-8 text-3xl font-bold">Skills & Tech</h2>
 
-    <p class="text-highlight text-xs font-mono uppercase tracking-widest mb-2">Stack</p>
-    <h2 class="text-primary text-3xl font-bold mb-8">Skills & Tech</h2>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 auto-rows-[minmax(160px,auto)] gap-4">
-      {skillCategories.map((category) => (
-        <div
-          data-scroll-reveal
-          data-tilt
-          class:list={[
-            'bg-surface backdrop-blur-md border border-stroke rounded-2xl p-6 flex flex-col gap-4 transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg hover:shadow-black/30',
-            colSpanClass[category.colSpan ?? 1],
-          ]}
-        >
-          <span class:list={[category.accent, 'text-xs font-mono uppercase tracking-widest']}>{category.label}</span>
-          <div class="flex flex-wrap gap-2">
-            {category.skills.map((skill) => <TechBadge label={skill} tint={getBadgeTint(category.color)} />)}
-          </div>
-        </div>
-      ))}
+    <div class="grid auto-rows-[minmax(160px,auto)] grid-cols-1 gap-4 md:grid-cols-3">
+      {
+        skillCategories.map((category) => (
+          <Card
+            data-scroll-reveal
+            data-tilt
+            class:list={['flex flex-col gap-4 p-6', colSpanClass[category.colSpan ?? 1]]}
+          >
+            <Kicker color={category.accent}>{category.label}</Kicker>
+            <div class="flex flex-wrap gap-2">
+              {category.skills.map((skill) => (
+                <TechBadge label={skill} tint={getBadgeTint(category.color)} />
+              ))}
+            </div>
+          </Card>
+        ))
+      }
     </div>
   </div>
 </section>

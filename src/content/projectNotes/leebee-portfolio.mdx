@@ -1,0 +1,64 @@
+---
+---
+
+import { ScreenshotGallery } from '@shared/ui';
+
+## Summary
+
+This portfolio is the project here. I wanted to make a personal developer portfolio and interactive resume built with Astro. I structured it around **Feature-Sliced Design** and **Domain-Driven** content collections. It contains all of my recent work along with a nice visualization of my resume and work history.
+
+## Introduction
+
+I wanted to try and create a website using a Static Site Generation and I figured my portfolio would be the perfect project to try it out! I always knew that I would need to showcase my work post-Libsyn, so the concept of a portfolio itself was nothing new. Two unique things I knew I wanted to add in were the recently played games and recent dice rolls. I was able to easily create the routes in the other apps ([DigitalNinjaLee](https://digitalninjalee.com) and [TabulaRollsa](https://tabularolla.com) in order to fetch the data I needed to showcase it in the header.
+
+## Architecture
+
+When using **Astro**, I still wanted to keep the **Feature-Sliced Design** and **Single Responsibility Principle** in mind while creating this portfolio.
+
+| Layer | Path        | Purpose                                                         |
+| ----- | ----------- | --------------------------------------------------------------- |
+| 1     | `shared/`   | Reusable UI primitives, assets, global styles, simple utilities |
+| 2     | `entities/` | Core business concepts and their data representations           |
+| 3     | `features/` | Explicit user actions yielding business value                   |
+| 4     | `widgets/`  | Composed layout blocks combining entities and features          |
+| 5     | `pages/`    | App routes composed entirely of widgets and features            |
+
+I really enjoyed how easy it was to work with MDX and JSON files for content. It's definitely a tool I would want to use for simple websites in the future.
+
+## Infrastructure
+
+The site is hosted on **Cloudflare Pages** as a fully static build. Astro outputs to `dist/` via `pnpm build` and Cloudflare picks that up directly — no server, no runtime, no cold starts. The build runs on Node 20.
+
+Because everything is pre-rendered at build time, the only dynamic pieces are the two live data cards in the hero. Those hit external APIs at runtime in the browser — one from DigitalNinjaLee.com for the currently playing game, and one from TabulaRollsa.com for recent dice rolls.
+
+## Style
+
+I wanted to keep a minimalistic look and feel for the portfolio. While simple, I also wanted to have some features that would make it look modern. While I know glassomorphism and whatnot can be considered to be overused, I thought it would still be nice to go with that look and feel. The big thing I like about it was the Desktop hover effects on the cards and the slight light behind the cursor.
+
+One of the cool little features I added was the preview eye on each Project card. When you hover over it, you can see what it looks like. I opted to just make this a screenshot, but an actual live preview may be nice in the future?
+
+The experience was also just cards at first (similar to Projects), but I opted to make it look like a vertical timeline of my experience. I feel like that gives a good sense of the timeline of my experience.
+
+The last big additions were the D&D rolls and the now playing card. I feel like these give my page a little more about my identity and personality.
+
+## Screenshots
+
+### Desktop
+
+<ScreenshotGallery
+  shots={[
+    { src: '/projects/leebee-portfolio/desktop_top.png', label: 'Header' },
+    { src: '/projects/leebee-portfolio/desktop--hover.png', label: 'Header Hover' },
+    { src: '/projects/leebee-portfolio/desktop_project-preview.png', label: 'Projects Preview' },
+    { src: '/projects/leebee-portfolio/desktop_experience.png', label: 'Experience' },
+    { src: '/projects/leebee-portfolio/desktop_experience--hover.png', label: 'Experience Hover' },
+    { src: '/projects/leebee-portfolio/desktop_project-page.png', label: 'Project Page' },
+  ]}
+/>
+
+### Mobile
+
+<ScreenshotGallery
+  shots={[{ src: '/projects/leebee-portfolio/mobile.png', label: 'Mobile' }]}
+  mode="mobile"
+/>

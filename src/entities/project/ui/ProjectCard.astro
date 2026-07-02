@@ -1,5 +1,6 @@
 ---
 import { Icon } from 'astro-icon/components';
+import { Card, Kicker } from '@shared/ui';
 import type { Project } from '../types/index';
 
 interface Props {
@@ -14,10 +15,10 @@ const primaryUrl = hasNotes
   : (project.data.liveUrl ?? project.data.repoUrl ?? null);
 ---
 
-<div
+<Card
   data-scroll-reveal
   data-tilt
-  class="bg-surface border-stroke group relative flex flex-col justify-between rounded-2xl border p-6 backdrop-blur-md transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg hover:shadow-black/30"
+  class="group relative flex flex-col justify-between p-6"
 >
   <!-- Card-level overlay link — sits at z-0 so inner links stay clickable -->
   {
@@ -33,9 +34,7 @@ const primaryUrl = hasNotes
 
   <div class="relative z-10">
     <div class="flex items-center justify-between">
-      <span class="text-highlight font-mono text-xs tracking-widest uppercase">
-        {project.data.type ?? 'Project'}
-      </span>
+      <Kicker color="text-highlight">{project.data.type ?? 'Project'}</Kicker>
       <span class="text-muted font-mono text-xs">
         {project.data.startDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
       </span>
@@ -127,7 +126,7 @@ const primaryUrl = hasNotes
       )
     }
   </div>
-</div>
+</Card>
 
 <script>
   document.querySelectorAll('[data-preview-wrapper]').forEach((wrapper) => {
