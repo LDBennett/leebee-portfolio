@@ -1,0 +1,26 @@
+{
+  "title": "DNL Arcade",
+  "description": "A retro-themed arcade built as a set of independent Next.js Multi-Zone apps composed through routing and managed as a Turborepo monorepo — a gateway lobby, an isolated game engine sandbox, and a Postgres-backed high-score leaderboard.",
+  "tags": [
+    "Next.js",
+    "TypeScript",
+    "Micro-Frontends",
+    "Turborepo",
+    "Tailwind CSS",
+    "Prisma",
+    "PostgreSQL",
+    "Domain Driven Design",
+    "Feature-Sliced Design"
+  ],
+  "startDate": "2026-07-04",
+  "featured": true,
+  "note": "Actively in progress — Matrix Breach is playable; Neon Snake, SoundWave, and ComboBreaker are still stubs.",
+  "liveUrl": "https://arcade.digitalninjalee.com",
+  "repoUrl": "https://github.com/LDBennett/dnl-arcade",
+  "highlights": [
+    "Multi-Zone architecture: a lobby shell reverse-proxies via Next.js rewrites",
+    "Matrix Breach hacking-terminal game live, with a shared score-client package handling leaderboard submission and player identity across zones",
+    "Feature-Sliced Design layers with domain logic modeled DDD-style as plain TypeScript entities"
+  ],
+  "previewImage": "/previews/dnl-arcade.png"
+}

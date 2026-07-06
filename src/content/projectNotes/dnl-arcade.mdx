@@ -1,0 +1,34 @@
+---
+---
+
+## Summary
+
+DNL Arcade is a retro-themed game suite built as a set of independent Next.js apps wired together through Multi-Zone routing, managed as a Turborepo monorepo. A single lobby shell proxies players into an isolated game engine and a Postgres-backed high-score leaderboard, so each piece can be built, deployed, and scaled on its own.
+
+## Introduction
+
+I wanted an excuse to actually use Next.js Multi-Zones for something instead of just reading about them. I felt a small, self-contained arcade of retro game riffs felt like the right shape: enough surface area to need real routing and a shared leaderboard. It taught me how micro-frontends would function in an single app.
+
+## Architecture
+
+The workspace splits into three Next.js apps under Turborepo: `lobby` (the shell every player actually visits), `engine` (an isolated sandbox hosting the game modules), and `leaderboard` (score persistence and API). The lobby reverse-proxies `/play` to the engine and `/scores` to the leaderboard via `next.config.ts` rewrites, so the browser only ever talks to one origin while the three apps stay independently deployable.
+
+Each zone is namespaced under its own `basePath` (`/play`, `/scores`) so routes never collide once proxied. The one hard rule the Multi-Zone setup imposes: any link crossing a zone boundary has to be a plain `<a>` tag, not `next/link` — a soft navigation across zones keeps running the borrowed content under the wrong app's JS runtime and silently breaks its basePath-relative links. It seemed strange at first doing it this way, but it still runs great just like if this were a SPA.
+
+All three apps organize `src/` as Feature-Sliced Design layers (`app → widgets → features → entities → shared`), with domain logic modeled DDD-style as plain TypeScript under `entities/*/model`. The first playable game, **Matrix Breach**, is the reference implementation: a Fallout-style hacking terminal where you crack a hex password by picking candidate codes and reading a likeness score back against the real one, under a limited attempt count and a time limit. `entities/hack-terminal` holds the pure puzzle logic (candidate generation, guess evaluation, scoring), `features/crack-terminal` wires that into a session reducer and the interactive grid, and `widgets/matrix-breach-terminal` composes the page.
+
+Score submission and player identity are shared concerns between the engine and lobby, so they live in `packages/score-client` — a thin fetch wrapper around the leaderboard API rather than duplicated per app. `packages/ui` holds the CRT-scanline design system and Tailwind preset shared across zones.
+
+## Infrastructure
+
+The leaderboard persists scores in Postgres via Prisma, with a pooled `DATABASE_URL` for runtime queries and a direct `DIRECT_URL` connection reserved for migrations. Turborepo scopes and caches builds per-package automatically off the workspace dependency graph, so a full `pnpm build` only rebuilds what actually changed.
+
+## Games
+
+### Matrix Breach — Playable
+
+The first game built and the FSD/DDD reference implementation for the rest of the arcade. Pick hex-code candidates, get a likeness score back, and crack the password before you run out of attempts or time.
+
+### Neon Snake, SoundWave, ComboBreaker — Stubs
+
+Routed and scaffolded (`app/neon-snake`, `app/soundwave`, `app/combo-breaker`) but not yet built out. Next up once Matrix Breach's patterns settle.
