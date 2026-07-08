@@ -18,6 +18,14 @@ if (!note || !project) return Astro.redirect('/');
 
 const { Content } = await render(note);
 const { data } = project;
+
+const statusColors: Record<string, string> = {
+  'In Progress': 'text-warm border-warm/25 bg-warm/5',
+  'Coming Soon': 'text-warm border-warm/25 bg-warm/5',
+  'Active': 'text-highlight border-highlight/25 bg-highlight/5',
+  'Completed': 'text-highlight border-highlight/25 bg-highlight/5',
+  'Published': 'text-accent border-accent/25 bg-accent/5',
+};
 ---
 
 <BaseLayout title={`${data.title} — Deep Dive`}>
@@ -27,6 +35,18 @@ const { data } = project;
         <span class="text-highlight font-mono text-xs tracking-widest uppercase">
           {data.type ?? 'Project'}
         </span>
+        {
+          data.status && (
+            <span
+              class:list={[
+                'rounded border px-1.5 py-0.5 font-mono text-[9px] font-semibold uppercase tracking-wider',
+                statusColors[data.status] || 'text-muted border-stroke bg-surface-subtle',
+              ]}
+            >
+              {data.status}
+            </span>
+          )
+        }
         <span class="text-muted/50 font-mono text-xs">
           {data.startDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
         </span>

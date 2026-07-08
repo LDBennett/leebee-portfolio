@@ -14,12 +14,13 @@
   ],
   "startDate": "2026-07-04",
   "featured": true,
-  "note": "Actively in progress — Matrix Breach is playable; Neon Snake, SoundWave, and ComboBreaker are still stubs.",
+  "status": "In Progress",
+  "note": "Actively in progress — Matrix Breach, Neon Snake and ComboBreaker are playable",
   "liveUrl": "https://arcade.digitalninjalee.com",
   "repoUrl": "https://github.com/LDBennett/dnl-arcade",
   "highlights": [
     "Multi-Zone architecture: a lobby shell reverse-proxies via Next.js rewrites",
-    "Matrix Breach hacking-terminal game live, with a shared score-client package handling leaderboard submission and player identity across zones",
+    "Various mini-games with a shared leaderboard",
     "Feature-Sliced Design layers with domain logic modeled DDD-style as plain TypeScript entities"
   ],
   "previewImage": "/previews/dnl-arcade.png"

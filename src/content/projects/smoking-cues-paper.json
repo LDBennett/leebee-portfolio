@@ -5,6 +5,7 @@
   "startDate": "2019-02-01",
   "featured": true,
   "type": "Publication",
+  "status": "Published",
   "liveUrl": "https://academic.oup.com/ntr/article/21/2/241/4821301",
   "highlights": [
     "Ran controlled participant sessions collecting cue-reactivity and smoking behavior data",

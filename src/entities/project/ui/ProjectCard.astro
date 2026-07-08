@@ -13,6 +13,14 @@ const { project, hasNotes } = Astro.props;
 const primaryUrl = hasNotes
   ? `/projects/${project.id}`
   : (project.data.liveUrl ?? project.data.repoUrl ?? null);
+
+const statusColors: Record<string, string> = {
+  'In Progress': 'text-warm border-warm/25 bg-warm/5',
+  'Coming Soon': 'text-warm border-warm/25 bg-warm/5',
+  'Active': 'text-highlight border-highlight/25 bg-highlight/5',
+  'Completed': 'text-highlight border-highlight/25 bg-highlight/5',
+  'Published': 'text-accent border-accent/25 bg-accent/5',
+};
 ---
 
 <Card
@@ -34,7 +42,21 @@ const primaryUrl = hasNotes
 
   <div class="relative z-10">
     <div class="flex items-center justify-between">
-      <Kicker color="text-highlight">{project.data.type ?? 'Project'}</Kicker>
+      <div class="flex items-center gap-2">
+        <Kicker color="text-highlight">{project.data.type ?? 'Project'}</Kicker>
+        {
+          project.data.status && (
+            <span
+              class:list={[
+                'rounded border px-1.5 py-0.5 font-mono text-[9px] font-semibold uppercase tracking-wider',
+                statusColors[project.data.status] || 'text-muted border-stroke bg-surface-subtle',
+              ]}
+            >
+              {project.data.status}
+            </span>
+          )
+        }
+      </div>
       <span class="text-muted font-mono text-xs">
         {project.data.startDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
       </span>

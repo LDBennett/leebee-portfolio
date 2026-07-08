@@ -4,6 +4,7 @@
   "tags": ["React", "SASS/SCSS", "React Bootstrap"],
   "startDate": "2020-11-01",
   "featured": true,
+  "status": "Completed",
   "note": "Built in 2020 — planning to modernize this one.",
   "liveUrl": "https://superiorclosings.com/",
   "repoUrl": "https://github.com/LDBennett/superior-closings",
