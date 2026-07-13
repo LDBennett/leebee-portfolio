@@ -1,0 +1,24 @@
+{
+  "title": "Pittsburgh H-Day 2026",
+  "description": "A password-gated party invite site celebrating the day Pittsburgh got its 'H' back. Includes an animated history timeline, party logistics, and an RSVP dashboard for guests and food/drink contributions.",
+  "tags": [
+    "Svelte 5",
+    "SvelteKit",
+    "TypeScript",
+    "Tailwind CSS",
+    "GSAP",
+    "Drizzle",
+    "Cloudflare D1",
+    "Cloudflare Pages"
+  ],
+  "startDate": "2026-07-11",
+  "featured": true,
+  "status": "Complete",
+  "liveUrl": "https://portfolio-party-example.ldbennett.com/",
+  "highlights": [
+    "GSAP-animated party invite website",
+    "Live RSVP dashboard backed by Cloudflare D1 via Drizzle ORM",
+    "Completed with Antigravity CLI"
+  ],
+  "previewImage": "/previews/h-day-party.png"
+}

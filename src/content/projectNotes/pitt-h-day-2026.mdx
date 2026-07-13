@@ -1,0 +1,43 @@
+---
+---
+
+import { ScreenshotGallery } from '@shared/ui';
+
+import { buildShots } from '@entities/projectNote';
+
+export const pittHDayShots = buildShots('h-day-party', false, [
+  { file: 'desktop_password', label: 'Password Gate' },
+  { file: 'desktop_header', label: 'H Day Party Header' },
+  { file: 'desktop_bridge-timeline-1', label: 'Pittsburgh Bridge Timeline' },
+  { file: 'desktop_bridge-timeline-2', label: 'Pittsburgh Bridge Timeline Middle' },
+  { file: 'desktop_logistics', label: 'Party Logistics' },
+  { file: 'desktop_guest-summary', label: 'Guest Summary' },
+  { file: 'desktop_guest-rsvp', label: 'Party RSVP Changes' },
+]);
+
+## Summary
+
+Pittsburgh H-Day Party 2026 is the digital invite and RSVP hub for a real party celebrating the day Pittsburgh officially got its "H" back in 1911. It's a password-gated single-page site. It includes a history timeline (shaped as a yellow bridge), party logistics, and a guest list. The site is wrapped in a Pittsburgh-flavored GSAP animation flow.
+
+Password to enter this example party copy is Portfolio2026!
+
+## Introduction
+
+I wanted an invite that was more fun to open than a group text, and "H-Day" gave me an actual bit to build around. H-day, the day Pittsburgh got it's "H" back after losing it to a federal spelling mandate in 1890.
+Two things I wanted to accomplish with this site. The first was to solely use Google's Antigravity CLI as my coding agent and second was to use GSAP for animations. I was very surprised and really enjoyed using Antigravity. I really liked when I got my plan ready, it broke things up step by step and ensured everything was good with each slice before moving on. It's closer to how I actually develop things, so that was a huge plus. The other huge benefits was it's context. No more using various md docs and compacting things like with Claude.
+
+## Architecture
+
+The site is Svelte 5 and SvelteKit, using runes. Components are split into three layers: `sections/` for the large stateful page blocks (`Hero`, `Timeline`, `Logistics`, `Rsvp`) that own data fetching and GSAP orchestration, `widget/` for business-logic pieces composed inside a section (`GuestCard`, `TimelineCard`), and `ui/` for dumb, reusable primitives like the glassmorphism `Card`.
+
+## Infrastructure
+
+RSVP data is real, not mocked: guests are stored in Cloudflare D1 via Drizzle ORM, with a single `guests` table and a `/api/guests` endpoint that shields the D1 binding from the client. Guests can add themselves, mark attendance, and log what they're bringing, and it shows up for everyone else immediately. The site deploys to Cloudflare Pages via `@sveltejs/adapter-cloudflare`.
+
+## Details
+
+The timeline section tells the actual "H-Day" history — the 1816 founding typo that dropped the h, the 1890 federal mandate that made it official, twenty years of Pittsburghers refusing to comply, and the 1911 reversal — as a horizontally scrolling set of cards synced to the party date. Logistics and RSVP sit below it as tabbed panels (when/where/food/drinks, and who's coming/who's barking/what's cookin') built as swipeable tabs so the whole thing works as cleanly on a phone passed around at the party as it does on desktop.
+
+## Screenshots
+
+<ScreenshotGallery shots={pittHDayShots} />
