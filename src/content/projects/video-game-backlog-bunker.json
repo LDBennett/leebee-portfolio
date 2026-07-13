@@ -22,7 +22,7 @@
   "highlights": [
     "Game enrichment pipeline cross-references RAWG (metadata, genres, tags) and IGDB (cover art, themes, game modes) — storing external IDs per game for future sync",
     "Random game picker with carousel animation, filterable by status and mood tags that are auto-suggested from API genre data",
-    "Supabase auth with RLS — protected routes via requireAuth(), public anonymous browsing via optionalAuth(), and a rich status model covering wishlist, replay, and backlog states"
+    "Discord and Steam integration for Recently Played statuses"
   ],
   "previewImage": "/previews/digitalninjalee.png"
 }

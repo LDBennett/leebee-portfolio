@@ -39,6 +39,8 @@ Auth uses Supabase Row Level Security with two patterns throughout the codebase 
 
 **Framer Motion** handles the carousel animation on the random game picker, which filters by status and mood tags before spinning.
 
+ADD 7/13/26 - Added a new feature for my recently played games. It goes through my Discord status or Steam API for games being played. I set up a CRON job in Supabase to fetch a status and update a new table with sessions.
+
 ## Infrastructure
 
 Deployed to **Vercel** on the hobby tier — zero config, automatic preview deployments on every push. **Supabase** handles both authentication and the PostgreSQL database, with RLS policies enforcing per-user data isolation at the database level.
