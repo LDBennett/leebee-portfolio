@@ -17,17 +17,13 @@ const primaryUrl = hasNotes
 const statusColors: Record<string, string> = {
   'In Progress': 'text-warm border-warm/25 bg-warm/5',
   'Coming Soon': 'text-warm border-warm/25 bg-warm/5',
-  'Active': 'text-highlight border-highlight/25 bg-highlight/5',
-  'Completed': 'text-highlight border-highlight/25 bg-highlight/5',
-  'Published': 'text-accent border-accent/25 bg-accent/5',
+  Active: 'text-highlight border-highlight/25 bg-highlight/5',
+  Completed: 'text-highlight border-highlight/25 bg-highlight/5',
+  Published: 'text-accent border-accent/25 bg-accent/5',
 };
 ---
 
-<Card
-  data-scroll-reveal
-  data-tilt
-  class="group relative flex flex-col justify-between p-6"
->
+<Card data-scroll-reveal data-tilt class="group relative flex flex-col justify-between p-6">
   <!-- Card-level overlay link — sits at z-0 so inner links stay clickable -->
   {
     primaryUrl && (
@@ -48,7 +44,7 @@ const statusColors: Record<string, string> = {
           project.data.status && (
             <span
               class:list={[
-                'rounded border px-1.5 py-0.5 font-mono text-[9px] font-semibold uppercase tracking-wider',
+                'rounded border px-1.5 py-0.5 font-mono text-[9px] font-semibold tracking-wider uppercase',
                 statusColors[project.data.status] || 'text-muted border-stroke bg-surface-subtle',
               ]}
             >
@@ -73,29 +69,36 @@ const statusColors: Record<string, string> = {
           class="text-muted/40 hover:text-highlight focus:text-highlight flex items-center rounded transition-colors duration-200 focus:outline-none"
           data-preview-btn
         >
-          <Icon name="lucide:eye" size={18} aria-hidden="true" />
+          <Icon name="lucide:eye" size={25} aria-hidden="true" />
         </button>
 
         <div
           data-preview-panel
-          class="pointer-events-none absolute right-0 top-full z-50 mt-2 w-64 translate-y-1 opacity-0 transition-all duration-200"
+          class="pointer-events-none absolute top-full right-0 z-50 mt-2 w-64 translate-y-1 opacity-0 transition-all duration-200"
         >
           <div class="border-stroke overflow-hidden rounded-xl border shadow-2xl shadow-black/60">
-            {project.data.previewImage ? (
-              <img
-                src={project.data.previewImage}
-                alt={`${project.data.title} preview`}
-                class="aspect-video w-full object-cover object-top"
-                loading="lazy"
-              />
-            ) : (
-              <div class="bg-canvas/90 flex aspect-video items-center justify-center">
-                <div class="text-center">
-                  <Icon name="lucide:image" size={24} class="text-accent/20 mx-auto mb-2" aria-hidden="true" />
-                  <span class="text-muted/40 font-mono text-xs">screenshot coming soon</span>
+            {
+              project.data.previewImage ? (
+                <img
+                  src={project.data.previewImage}
+                  alt={`${project.data.title} preview`}
+                  class="aspect-video w-full object-cover object-top"
+                  loading="lazy"
+                />
+              ) : (
+                <div class="bg-canvas/90 flex aspect-video items-center justify-center">
+                  <div class="text-center">
+                    <Icon
+                      name="lucide:image"
+                      size={24}
+                      class="text-accent/20 mx-auto mb-2"
+                      aria-hidden="true"
+                    />
+                    <span class="text-muted/40 font-mono text-xs">screenshot coming soon</span>
+                  </div>
                 </div>
-              </div>
-            )}
+              )
+            }
           </div>
           <div class="text-muted/40 mt-1.5 text-right font-mono text-xs">{project.data.title}</div>
         </div>
@@ -107,7 +110,7 @@ const statusColors: Record<string, string> = {
   </div>
 
   <!-- Bottom row — always direct external links -->
-  <div class="border-stroke-subtle relative z-10 mt-6 flex items-center gap-3 border-t pt-4">
+  <div class="border-stroke-subtle relative z-10 mt-6 flex items-center gap-4 border-t pt-4">
     {
       project.data.repoUrl && (
         <a
@@ -115,10 +118,10 @@ const statusColors: Record<string, string> = {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="GitHub repository"
-          class="card-link-underline text-muted/50 hover:text-highlight shrink-0 transition-colors duration-200"
+          class="text-muted/50 hover:text-highlight active:scale-95 active:opacity-70 p-2 -m-2 shrink-0 transform transition-all duration-200 hover:-translate-y-0.5 hover:scale-110"
           data-bottom-link
         >
-          <Icon name="simple-icons:github" size={15} aria-hidden="true" />
+          <Icon name="simple-icons:github" size={20} aria-hidden="true" />
         </a>
       )
     }
@@ -128,10 +131,11 @@ const statusColors: Record<string, string> = {
           href={project.data.liveUrl}
           target="_blank"
           rel="noopener noreferrer"
-          class="card-link-underline card-link-underline-d1 text-muted/50 hover:text-highlight font-mono text-xs transition-colors duration-200"
+          aria-label="Visit live site"
+          class="text-muted/50 hover:text-highlight active:scale-95 active:opacity-70 p-2 -m-2 shrink-0 transform transition-all duration-200 hover:-translate-y-0.5 hover:scale-110"
           data-bottom-link
         >
-          {new URL(project.data.liveUrl).hostname}
+          <Icon name="lucide:globe" size={20} aria-hidden="true" />
         </a>
       )
     }
@@ -140,10 +144,11 @@ const statusColors: Record<string, string> = {
       hasNotes && primaryUrl && (
         <a
           href={primaryUrl}
-          class="card-link-underline card-link-underline-d2 text-muted/50 hover:text-highlight ml-auto font-mono text-xs transition-colors duration-200"
+          aria-label="Read project deep dive"
+          class="text-muted/50 hover:text-highlight active:scale-95 active:opacity-70 p-2 -m-2 ml-auto flex transform items-center gap-1.5 font-mono text-sm transition-all duration-200 hover:-translate-y-0.5 hover:scale-110"
           data-bottom-link
         >
-          deep dive →
+          deep dive <Icon name="lucide:book-open" size={20} aria-hidden="true" />
         </a>
       )
     }

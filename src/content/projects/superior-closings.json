@@ -1,11 +1,10 @@
 {
   "title": "Superior Closings",
-  "description": "Business website for Superior Closing Services, a Pittsburgh-area real estate closing company serving agents, brokers, investors, and loan officers. Built to give the business a professional web presence that reflects their streamlined, client-first approach to the closing process.",
+  "description": "Business website for Superior Closing Services, a Pittsburgh-area real estate closing company serving agents, brokers, investors, and loan officers.",
   "tags": ["React", "SASS/SCSS", "React Bootstrap"],
   "startDate": "2020-11-01",
   "featured": true,
   "status": "Completed",
-  "note": "Built in 2020 — planning to modernize this one.",
   "liveUrl": "https://superiorclosings.com/",
   "repoUrl": "https://github.com/LDBennett/superior-closings",
   "highlights": [

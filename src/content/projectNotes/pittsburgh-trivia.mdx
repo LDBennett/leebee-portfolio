@@ -1,0 +1,30 @@
+---
+---
+
+import { ScreenshotGallery } from '@shared/ui';
+
+import { buildShots } from '@entities/projectNote';
+
+export const triviaShots = buildShots('pittsburgh-trivia', false, [
+  { file: 'mobile_create-room', label: 'Create Room View' },
+  { file: 'mobile_host-view', label: 'Host View - Base View for Host' },
+  { file: 'mobile_host-view-judgement', label: 'Host View - Judgement for Answer' },
+  { file: 'mobile_player-view-start', label: 'Player View - Base View' },
+  { file: 'mobile_player-view-buzz', label: 'Player Buzzer - Buzzer View' },
+]);
+
+## Summary
+
+Pittsburgh Trivia is a real-time, room-code-based trivia application built multi-phone live play. Users an create a room and use that shared room code to play with others. It has ~50 total trivia questions and it keeps track of users score and buzz in order.
+
+## Introduction
+
+The goal of this project was to build a my first multi-phone game. This feature is going to be implemented into Hearth Huddle eventually, but I wanted to start with a new project to see how it would actually work. It initially was using Cloudflare Durable Objects, but I pivoted to rely on WebSockets and an event-driven backend instead for pricing. This project was related to the H-Day Party to play a Pittsburgh trivia during the event!
+
+## Architecture
+
+The frontend is built with React 19, utilizing Framer Motion for state transitions and Tailwind CSS for styling. It features separate views for the Host (Questions, starting buzzer, scores, buzz queue, etc) and Players (buzzer, question, and other players). The backend relies on Node.js and WebSockets to maintain a single source of truth for the room state and process concurrent buzzer races sequentially. It uses Render's free tier services for the backend (hence the longer start up time for creating a room).
+
+## Screenshots
+
+<ScreenshotGallery shots={triviaShots} mobile />

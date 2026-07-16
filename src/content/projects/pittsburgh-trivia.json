@@ -1,0 +1,16 @@
+{
+  "title": "Pittsburgh Trivia",
+  "description": "A real-time room-code-based trivia application with buzzer registration, a buzzer queue, and synchronized active timers. All questions are based on Pittsburgh trivia.",
+  "tags": ["React 19", "TypeScript", "Tailwind CSS", "Framer Motion", "Node.js", "WebSockets"],
+  "startDate": "2026-07-16",
+  "featured": true,
+  "status": "Complete",
+  "liveUrl": "https://pittsburgh-trivia.hearthhuddle.com/",
+  "highlights": [
+    "Real-time websocket communication",
+    "Server-authoritative game state and timers",
+    "Millisecond-precise buzzer queueing",
+    "Mobile-first player view and big-screen host view"
+  ],
+  "previewImage": "/previews/pittsburgh-trivia.png"
+}

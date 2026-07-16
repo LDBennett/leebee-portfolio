@@ -29,6 +29,7 @@ export const skillCategories: SkillCategory[] = [
       'GSAP',
       'Zustand',
       'React Bootstrap',
+      'Radix UI',
       'Astro',
     ],
   },
@@ -40,6 +41,7 @@ export const skillCategories: SkillCategory[] = [
     skills: [
       'Node.js',
       'Express',
+      'WebSockets',
       'PHP',
       'Laravel',
       'Zend Framework',
