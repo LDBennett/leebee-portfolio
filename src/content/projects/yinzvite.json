@@ -1,0 +1,28 @@
+{
+  "title": "Yinzvite",
+  "description": "A small 'party' invite app where users can make a form online to keep track of guests. It's very Pittsburgh themed, but can be used for any party.",
+  "tags": [
+    "Vue",
+    "TypeScript",
+    "Pinia",
+    "Nuxt",
+    "Nuxt UI",
+    "Clerk",
+    "Tailwind CSS",
+    "Zod",
+    "PostgreSQL",
+    "Drizzle",
+    "Domain Driven Design",
+    "Feature-Sliced Design"
+  ],
+  "startDate": "2026-07-06",
+  "featured": true,
+  "status": "In Progress",
+  "note": "In Early Development",
+
+  "highlights": [
+    "Utilizes Vue 3, Nuxt 3, Pinia, and Nuxt UI",
+    "Create invites, add guests, and track guest responses",
+    "Feature-Sliced Design layers with domain logic modeled DDD-style as plain TypeScript entities"
+  ]
+}
