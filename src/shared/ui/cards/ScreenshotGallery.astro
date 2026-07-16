@@ -23,7 +23,7 @@ const { shots, mode = 'desktop' } = Astro.props;
         >
           {shots.map((shot) => (
             <div class="w-55 shrink-0">
-              <div class="overflow-hidden rounded-2xl shadow-2xl">
+              <div class="bg-surface-subtle min-h-[300px] overflow-hidden rounded-2xl shadow-2xl">
                 <img
                   src={shot.src}
                   alt={shot.label}
@@ -84,7 +84,7 @@ const { shots, mode = 'desktop' } = Astro.props;
 
       <div class="sg-image-area overflow-hidden rounded-2xl shadow-2xl">
         {shots.map((shot, i) => (
-          <div data-panel={i} class:list={[i !== 0 && 'hidden', 'w-full']}>
+          <div data-panel={i} class:list={[i !== 0 && 'hidden', 'bg-surface-subtle min-h-[400px] w-full']}>
             <img
               src={shot.src}
               alt={shot.label}

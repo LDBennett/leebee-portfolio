@@ -10,9 +10,7 @@ interface Props {
 
 const { project, hasNotes } = Astro.props;
 
-const primaryUrl = hasNotes
-  ? `/projects/${project.id}`
-  : (project.data.liveUrl ?? project.data.repoUrl ?? null);
+const primaryUrl = hasNotes ? `/projects/${project.id}` : null;
 
 const statusColors: Record<string, string> = {
   'In Progress': 'text-warm border-warm/25 bg-warm/5',
@@ -23,19 +21,7 @@ const statusColors: Record<string, string> = {
 };
 ---
 
-<Card data-scroll-reveal data-tilt class="group relative flex flex-col justify-between p-6">
-  <!-- Card-level overlay link — sits at z-0 so inner links stay clickable -->
-  {
-    primaryUrl && (
-      <a
-        href={primaryUrl}
-        class="absolute inset-0 z-0 rounded-2xl"
-        aria-label={project.data.title}
-        {...(primaryUrl.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-      />
-    )
-  }
-
+<Card data-scroll-reveal data-tilt class="group flex flex-col justify-between p-6">
   <div class="relative z-10">
     <div class="flex items-center justify-between">
       <div class="flex items-center gap-2">
@@ -58,135 +44,132 @@ const statusColors: Record<string, string> = {
       </span>
     </div>
 
-    <!-- Title row with eye preview -->
-    <div class="mt-2 flex items-start gap-3">
-      <h3 class="text-primary min-w-0 flex-1 text-xl font-semibold">{project.data.title}</h3>
+    {/* Title row with integrated action icons */}
+    <div class="mt-2 flex items-start justify-between gap-4">
+      <h3 class="text-primary text-xl font-semibold">{project.data.title}</h3>
 
-      <div class="relative shrink-0" data-preview-wrapper>
-        <button
-          type="button"
-          aria-label="Preview screenshot"
-          class="text-muted/40 hover:text-highlight focus:text-highlight flex items-center rounded transition-colors duration-200 focus:outline-none"
-          data-preview-btn
-        >
-          <Icon name="lucide:eye" size={25} aria-hidden="true" />
-        </button>
+      <div class="flex shrink-0 items-center gap-3">
+        {
+          project.data.repoUrl && (
+            <a
+              href={project.data.repoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub repository"
+              class="text-muted/60 group-hover:text-highlight/50 hover:text-highlight -m-2 flex items-center justify-center p-2 transition-all duration-200 hover:-translate-y-0.5 hover:scale-110 active:scale-95"
+            >
+              <Icon name="simple-icons:github" size={16} aria-hidden="true" />
+            </a>
+          )
+        }
+        {
+          project.data.liveUrl && (
+            <a
+              href={project.data.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visit live site"
+              class="text-muted/60 group-hover:text-highlight/50 hover:text-highlight -m-2 flex items-center justify-center p-2 transition-all duration-200 hover:-translate-y-0.5 hover:scale-110 active:scale-95"
+            >
+              <Icon name="lucide:globe" size={16} aria-hidden="true" />
+            </a>
+          )
+        }
+        {
+          project.data.previewImage && (
+            <div class="relative flex items-center justify-center" data-preview-wrapper>
+              <button
+                type="button"
+                aria-label="Toggle preview screenshot"
+                class="text-muted/60 group-hover:text-highlight/50 hover:text-highlight -m-2 flex cursor-pointer items-center justify-center p-2 transition-all duration-200 hover:-translate-y-0.5 hover:scale-110 focus:outline-none active:scale-95"
+                data-preview-btn
+              >
+                <Icon name="lucide:image" size={16} aria-hidden="true" />
+              </button>
 
-        <div
-          data-preview-panel
-          class="pointer-events-none absolute top-full right-0 z-50 mt-2 w-64 translate-y-1 opacity-0 transition-all duration-200"
-        >
-          <div class="border-stroke overflow-hidden rounded-xl border shadow-2xl shadow-black/60">
-            {
-              project.data.previewImage ? (
-                <img
-                  src={project.data.previewImage}
-                  alt={`${project.data.title} preview`}
-                  class="aspect-video w-full object-cover object-top"
-                  loading="lazy"
-                />
-              ) : (
-                <div class="bg-canvas/90 flex aspect-video items-center justify-center">
-                  <div class="text-center">
-                    <Icon
-                      name="lucide:image"
-                      size={24}
-                      class="text-accent/20 mx-auto mb-2"
-                      aria-hidden="true"
-                    />
-                    <span class="text-muted/40 font-mono text-xs">screenshot coming soon</span>
-                  </div>
+              {/* Panel drops down from the header */}
+              <div
+                data-preview-panel
+                class="pointer-events-none absolute top-full right-0 z-50 mt-2 w-64 origin-top-right translate-y-2 opacity-0 transition-all duration-200"
+              >
+                <div class="border-stroke overflow-hidden rounded-xl border shadow-2xl shadow-black/60">
+                  <img
+                    src={project.data.previewImage}
+                    alt={`${project.data.title} preview`}
+                    class="aspect-video w-full object-cover object-top"
+                    loading="lazy"
+                  />
                 </div>
-              )
-            }
-          </div>
-          <div class="text-muted/40 mt-1.5 text-right font-mono text-xs">{project.data.title}</div>
-        </div>
+              </div>
+            </div>
+          )
+        }
       </div>
     </div>
 
-    <p class="text-body mt-2 text-sm leading-relaxed">{project.data.description}</p>
+    <p class="text-body mt-3 text-sm leading-relaxed">{project.data.description}</p>
     {project.data.note && <p class="text-muted/70 mt-2 text-xs italic">{project.data.note}</p>}
   </div>
 
-  <!-- Bottom row — always direct external links -->
-  <div class="border-stroke-subtle relative z-10 mt-6 flex items-center gap-4 border-t pt-4">
-    {
-      project.data.repoUrl && (
-        <a
-          href={project.data.repoUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="GitHub repository"
-          class="text-muted/50 hover:text-highlight active:scale-95 active:opacity-70 p-2 -m-2 shrink-0 transform transition-all duration-200 hover:-translate-y-0.5 hover:scale-110"
-          data-bottom-link
-        >
-          <Icon name="simple-icons:github" size={20} aria-hidden="true" />
-        </a>
-      )
-    }
-    {
-      project.data.liveUrl && (
-        <a
-          href={project.data.liveUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Visit live site"
-          class="text-muted/50 hover:text-highlight active:scale-95 active:opacity-70 p-2 -m-2 shrink-0 transform transition-all duration-200 hover:-translate-y-0.5 hover:scale-110"
-          data-bottom-link
-        >
-          <Icon name="lucide:globe" size={20} aria-hidden="true" />
-        </a>
-      )
-    }
-
-    {
-      hasNotes && primaryUrl && (
+  {/* Extremely minimalist footer */}
+  {
+    primaryUrl && (
+      <div class="border-stroke-subtle relative z-20 mt-6 flex justify-end border-t pt-4">
         <a
           href={primaryUrl}
           aria-label="Read project deep dive"
-          class="text-muted/50 hover:text-highlight active:scale-95 active:opacity-70 p-2 -m-2 ml-auto flex transform items-center gap-1.5 font-mono text-sm transition-all duration-200 hover:-translate-y-0.5 hover:scale-110"
-          data-bottom-link
+          class="text-muted group-hover:text-highlight/50 hover:text-highlight flex items-center gap-1.5 font-mono text-sm transition-colors duration-200 active:scale-95"
         >
-          deep dive <Icon name="lucide:book-open" size={20} aria-hidden="true" />
+          deep dive{' '}
+          <Icon
+            name="lucide:arrow-right"
+            size={16}
+            aria-hidden="true"
+            class="transition-transform duration-300 group-hover:translate-x-1"
+          />
         </a>
-      )
-    }
-  </div>
+      </div>
+    )
+  }
 </Card>
 
 <script>
-  document.querySelectorAll('[data-preview-wrapper]').forEach((wrapper) => {
-    const btn = wrapper.querySelector('[data-preview-btn]') as HTMLElement | null;
-    const panel = wrapper.querySelector('[data-preview-panel]') as HTMLElement | null;
-    const card = wrapper.closest('[data-scroll-reveal]') as HTMLElement | null;
-    if (!btn || !panel || !card) return;
+  // Add simple click-to-toggle logic for the preview panels
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    const btn = target.closest('[data-preview-btn]');
 
-    const show = () => {
-      panel.classList.remove('opacity-0', 'translate-y-1', 'pointer-events-none');
-      panel.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
-      card.style.zIndex = '50';
-    };
-    const hide = () => {
-      panel.classList.add('opacity-0', 'translate-y-1', 'pointer-events-none');
-      panel.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
-      card.style.zIndex = '';
+    const closeAll = () => {
+      document.querySelectorAll('[data-preview-panel]').forEach((panel) => {
+        panel.classList.add('opacity-0', 'translate-y-2', 'pointer-events-none');
+        panel.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+        const card = panel.closest('[data-scroll-reveal]') as HTMLElement | null;
+        if (card) card.style.zIndex = '';
+      });
     };
 
-    wrapper.addEventListener('mouseenter', show);
-    wrapper.addEventListener('mouseleave', hide);
-    wrapper.addEventListener('focusin', show);
-    wrapper.addEventListener('focusout', (e) => {
-      if (!wrapper.contains((e as FocusEvent).relatedTarget as Node)) hide();
-    });
+    // If clicking outside any preview panel, close them all
+    if (!btn && !target.closest('[data-preview-panel]')) {
+      closeAll();
+      return;
+    }
 
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-    });
-  });
+    // If clicking a button, toggle its specific panel
+    if (btn) {
+      const wrapper = btn.closest('[data-preview-wrapper]');
+      const panel = wrapper?.querySelector('[data-preview-panel]');
+      const card = btn.closest('[data-scroll-reveal]') as HTMLElement | null;
+      if (!panel) return;
 
-  document.querySelectorAll('[data-bottom-link]').forEach((el) => {
-    el.addEventListener('click', (e) => e.stopPropagation());
+      const isHidden = panel.classList.contains('opacity-0');
+
+      closeAll();
+
+      if (isHidden) {
+        panel.classList.remove('opacity-0', 'translate-y-2', 'pointer-events-none');
+        panel.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+        if (card) card.style.zIndex = '100'; // Elevate the entire card above neighboring cards
+      }
+    }
   });
 </script>
