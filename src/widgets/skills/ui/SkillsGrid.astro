@@ -24,7 +24,7 @@ const colSpanClass: Record<number, string> = {
             class:list={['flex flex-col gap-4 p-6', colSpanClass[category.colSpan ?? 1]]}
           >
             <Kicker color={category.accent}>{category.label}</Kicker>
-            <div class="flex flex-wrap gap-2">
+            <div class="flex flex-wrap gap-2 [&:has(>_span:hover)_>_span:not(:hover)]:opacity-30">
               {category.skills.map((skill) => (
                 <TechBadge label={skill} tint={getBadgeTint(category.color)} />
               ))}

@@ -9,7 +9,7 @@ const { label, tint } = Astro.props;
 
 <span
   class:list={[
-    'border text-xs font-mono px-2.5 py-1 rounded-full',
+    'border text-xs font-mono px-2.5 py-1 rounded-full transition-all duration-200 cursor-default hover:-translate-y-0.5 hover:scale-105 hover:shadow-sm',
     tint ?? 'bg-surface border-stroke-subtle text-secondary',
   ]}
 >
